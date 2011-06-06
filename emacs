@@ -3,7 +3,6 @@
 ;; Add Path to look up lisp libraries
 ;;---------------------------------------
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
-(add-to-list 'load-path "~/.emacs.d/site-lisp/twittering-mode")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/js2")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/gist.el")
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet-0.6.1c")
@@ -295,10 +294,6 @@
 
 ;; Jabber for emacs
 (require 'jabber-autoloads)
-
-;; Twittering mode (OAuth twitter)
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
 
 ;; Android Support
 (require 'android)
