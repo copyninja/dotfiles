@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# Copyright 2011, Vasudev Kamath <kamathvasudev at gmail dot com>
+# Launch tmux with predefined windows
+
+
+tmux new-session -d -s copyninja
+
+tmux new-window -t copyninja -n 'irssi' 'irssi'
+tmux new-window -t copyninja -n 'mutt' 'mutt'
+
+tmux select-window -t copyninja:0
+tmux -2 attach-session -t copyninja
