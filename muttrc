@@ -1,0 +1,158 @@
+# First Get the password for all the files
+source "gpg --textmode -d ~/.secrets/.passwd.gpg|"
+
+# IMAP Setup
+set imap_user ="xxx@xyz.com"
+set imap_pass =$my_pass1
+
+set folder ='imaps://xxx@gmail.com@imap.gmail.com:993'
+set spoolfile ="+INBOX" \
+    postponed ="+[Gmail]/Drafts" \
+    trash ="+[Gmail]/Trash" \
+    record ="+[Gmail]/Sent Mail" \
+    from ='Vasudev Kamath <xxx@gmail.com>' \
+    realname = 'Vasudev Kamath' \
+    smtp_url = "smtp://xxx@gmail.com@smtp.gmail.com:587/" \
+    smtp_pass = $my_pass1
+
+# I Want to watch these mailboxe
+mailboxes =INBOX =[Gmail]/Drafts =[Gmail]/'Sent Mail' =[Gmail]/Spam =debian-devel =pkg-ruby =Debian-India =pkg-fonts \
+mailboxes =SCG-NMAMIT =Sanchaya =in-mini-debconf =Silpa-discus =pypdflib-dev ='Open Source Friends' =devel-cofsug Privacybox-de
+mailboxes =DIASPORA\*/diaspora-android
+
+# Some short cuts
+macro index gi '<change-folder>=INBOX<enter>' 'Go to inbox'
+macro index ga '<change-folder>=[Gmail]/All Mail<enter>' 'Go to all mail'
+macro index gs '<change-folder>=[Gmail]/Sent Mail<enter>' 'Go to Sent Mail'
+macro index gd '<change-folder>=[Gmail]/Drafts<enter>' 'Go to drafts'
+macro index dd '<change-folder>=debian-devel' 'Go to debian-devel'
+macro index dm '<change-folder>=debian-mentors' 'Go to debian-mentors'
+macro index di '<change-folder>=Debian-India' 'Go to Debian-India'
+macro index pr '<change-folder>=pkg-ruby' 'Go to pkg-ruby'
+macro index pf '<change-folder>=pkg-fonts' 'Go to pkg-fonts'
+macro index osf '<change-folder>=\"Open Source Friends\"' 'Go to FOSS friends folder'
+
+
+# secure mutt session
+set move = no
+set imap_keepalive = 900
+
+# Header stuff
+ignore "Authenticaation-Results:"
+ignore "Domainkey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+
+# ignore *
+# unignore from: date subject to cc
+# unignore x-mailing-list: posted-to:
+# unignore x-mailer:
+
+# local folders
+set header_cache =~/.mutt/cache/headers
+set message_cachedir =~/.mutt/cache/bodies
+set certificate_file =~/.mutt/certificates
+
+
+# special keybindings
+
+set pager_context=1
+set pager_index_lines=6                 #Einen Mini-Index im Pager anzeigen
+set menu_scroll
+set pgp_verify_sig=no                   #PGP nicht im Pager anzeigen
+set status_on_top                       #Statuszeile oben
+set markers =no # don't put '+' at the beginning of wrapped lines
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+
+# Some goodies
+set beep_new = yes
+set check_new = yes
+set timeout = 600
+
+
+set mbox_type=Maildir
+
+# Editor and pager
+set editor = "emacsclient +8"
+#set pager = "emacsclient +8"
+
+set status_format=" %r %b %f %n      Del %d      Msgs %m %l %> (%P)"
+set pager_format="%-10.10i %[!%a %b %d %R]"
+set date_format="!%H:%M %a %d %b     "
+set index_format="%4C %Z %[%b%d] %-15.15F %s"
+set folder_format="%2C %t %8s %d %N %f"
+
+save-hook .* =keep
+subscribe (.*)@lists.debian.org (.*).lists.alioth.debian.org (.*)@lists.debconf.org (.*)@librelist.com (.*).lists.sanchaya.net
+
+
+#======================================================#
+# Aliases
+#======================================================#
+set alias_file = ~/.mutt/.muttbook # In their own file
+source ~/.mutt/.muttbook           # Source them
+set sort_alias=alias         # Sort alphabetically
+
+
+
+# FARBEN
+color normal     green          black   # Normaler Text
+color indicator  black          red     # Die ausgewählte Nachricht
+color tree       red            black   # Die Pfeile, die einen Thread zusammenhalten
+color status     brightyellow   blue    # Die Statuszeile
+color error      brightred      black   # Eine Fehlermeldung
+color message    green          black   # Informative Nachrichten
+color signature  blue           black   # Die Signatur eines Senders
+color attachment brightyellow   red     # MIME attachments
+color search     brightyellow   red     # Suchergebnisse
+color tilde      black          black   # Die »~« am Anfang einer Nachricht
+color markers    red            black   # Das »+« bei umgebrochenen Zeilen
+color hdrdefault blue           black   # Standardheaderzeilen
+color bold       red            black   # *hervorgehobener* Text im Body
+color underline  green          black   # _unterstrichener_ Text im Body
+color quoted     blue           black   # gequoteter Text
+color quoted1    magenta        black
+color quoted2    red            black
+color quoted3    green          black
+color quoted4    blue           black
+color quoted5    cyan           black
+color quoted6    magenta        black
+color quoted7    red            black
+color quoted8    green          black
+color quoted9    blue           black
+
+#
+#     object     foreground backg.   RegExp
+#
+
+color header     green      black  "^(Subject):"
+color header     red        black  "^(From|X-Mailer|To|Cc|Reply-To|Date):"
+color body       black      white    "((ftp|http|https)://|(file|mailto|news):|www\\.)[-a-z0-9_.:]*[a-z0-9](/[^][{} \t\n\r\"<>()]*[^][{} \t\n\r\"<>().,:!])?/?"
+color body       green      black  "((;|:|8\\:|\\=)(-|=|~|_|-'|%|<|)(\\)|Q|P|\\)%))"
+color body       cyan       black  "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+color body       red        black  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+color body       green      black  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+color index      blue       black  ~F           # geflagged Nachrichte
+color index      red        black  ~N           # Neue Nachrichten
+color index      magenta    black  ~T           # getaggte Nachrichten
+color index      yellow     black  ~D           # Nachrichten, die als gelöscht
+
+
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0x87700B7E -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x9445B297 -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
+set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
+set pgp_autosign=yes
+set pgp_sign_as=0x87700B7E
+set pgp_replyencrypt=yes
+set pgp_timeout=1800
+set pgp_good_sign="^gpg: Gute Signatur von"
