@@ -1,8 +1,12 @@
-# My touch pad won't start automatically I need this!
+# My laptop touch pad won't work without this
 synclient TapButton1=1 TapButton2=1 VertEdgeScroll=1 HorizEdgeScroll=1 CornerCoasting=1
 
-# By default use xfce4
+# Default  I use xfce4
 DEFAULT_SESSION=startxfce4
+
+# I can't run ssh-add otherwise
+eval `ssh-agent`
+
 
 case $1 in
 kde)
@@ -37,6 +41,7 @@ blackbox)
 stumpwm)
 	xfce4-power-manager&
 	exec ck-launch-session dbus-launch stumpwm
+	;;
 *)
 	exec ck-launch-session dbus-launch $DEFAULT_SESSION
 	;;
