@@ -6,6 +6,7 @@ DEFAULT_SESSION=startxfce4
 
 # I can't run ssh-add otherwise
 eval `ssh-agent`
+export SSH_ASKPASS=/usr/bin/ssh-askpass
 
 
 case $1 in
@@ -16,24 +17,22 @@ xfce4)
 	    exec ck-launch-session dbus-launch startxfce4
 	;;
 dwm)
-    	exec /usr/bin/dwm-launch
+    	    exec ck-launch-session dbus-launch --sh-syntax --exit-with-session /usr/bin/dwm-launch
 	;;
 wmii)
         feh --bg-scale /home/vasudev/Documents/personal_hacks/wallpapers/UNIX4.png
         volumeicon &
-        xfce4-power-manager &
+        xfce4-power-manager
         xscreensaver -no-splash &
-        wicd-gtk &
         exec ck-launch-session dbus-launch wmii
 	
 	;;
 awesome)
         volumeicon &
-        xfce4-power-manager &
+        xfce4-power-manager
         xscreensaver -no-splash &
-        wicd-gtk &
-        xfce4-notes &
         exec ck-launch-session dbus-launch awesome
+        
 	;;
 blackbox)
 	exec ck-launch-session dbus-launch blackbox
