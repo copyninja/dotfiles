@@ -1,0 +1,10 @@
+#!/bin/sh
+# set -x
+
+conky -c /home/vasudev/.conkyrc.dwm | while read -r; do xsetroot -name "$REPLY"; done &
+# Never launch power manager in background!
+xfce4-power-manager
+feh --bg-scale /home/vasudev/Documents/personal_hacks/wallpapers/UNIX4.png
+xscreensaver -no-splash &
+exec dwm
+
