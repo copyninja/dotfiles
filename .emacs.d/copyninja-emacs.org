@@ -64,12 +64,12 @@
        (delete-trailing-whitespace)
        (indent-region (point-min) (point-max) nil)
        (untabify (point-min) (point-max)))
-     
+
     ;; Switch or create scratch buffer any time
     (defun openScratch()
       (interactive)
       (switch-to-buffer "*scratch*"))
-     
+
     ;; To work in full screen mode
     (defun fullscreen ()
       (interactive)
@@ -88,7 +88,7 @@
 
      ;; Get buffer menu with right mouse button
      (global-set-key (kbd "<mouse=3>") 'mouse-buffer-menu)
-  
+
      ;; Navigation between windows
      (global-set-key (kbd "C-x <down>")  'windmove-down)
      (global-set-key (kbd "C-x <up>")    'windmove-up)
@@ -109,7 +109,7 @@
      (global-set-key "\C-cy" '(lambda ()
                                      (interactive)
                                       (popup-menu 'yank-menu)))
- 
+
      ;; org-export on [f5]
      (global-set-key [f5] 'org-export-as-html)
 
@@ -122,14 +122,14 @@
 * Programing Related
   #+BEGIN_SRC emacs-lisp
     ;; cperl-mode is preferred to perl-mode
-    ;; "Brevity is the soul of wit" <foo at acm.org> 
+    ;; "Brevity is the soul of wit" <foo at acm.org>
     (defalias 'perl-mode 'cperl-mode)
 
     ;; turtle file mode for rdf
     (autoload 'ttl-mode "ttl-mode" "Major mode for OWL or Turtle file" t)
     (add-hook 'ttl-mode-hook
               'turn-on-font-lock)
-    
+
     ;; -------------------------------------------------------------------
     ;; different modes hook based on file extension
     ;; -------------------------------------------------------------------
@@ -139,7 +139,7 @@
         (append '(
             ("\\.pl$"           .       perl-mode)
             ("\\.cgi$"          .       perl-mode)
-            ("\\.pm$"           .       perl-mode)       
+            ("\\.pm$"           .       perl-mode)
             ("\\.emacs$"        .       emacs-lisp-mode)
             ("\\.sh$"           .       shell-script-mode)
             ("\\.html$"         .       html-mode)
@@ -160,7 +160,7 @@
          (0 (put-text-property
              (match-beginning 0)
              (match-end 0)
-             'face (list :background 
+             'face (list :background
                          (match-string-no-properties 0)))))))
     ;; Functions come from include directory
     (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
@@ -171,17 +171,17 @@
     ;; --------------------------------------------------
     ;; Enable yasnippet
     ;; --------------------------------------------------
-    require 'yasnippet)
-    yas-global-mode 1)
-    yas--initialize)
-    yas-minor-mode 1)
-     
-    nable yas dropdown
-    require 'dropdown-list)
-    setq yas-prompt-functions '(yas-dropdown-prompt
-                                yas-ido-prompt
-                                yas-completing-prompt))
-    add-hook 'prog-mode-hook
+    (require 'yasnippet)
+    (yas-global-mode 1)
+    (yas--initialize)
+    (yas-minor-mode 1)
+
+    ;;Enable yas dropdown
+    ;;(require 'dropdown-list)
+    ;;(setq yas-prompt-functions '(yas-dropdown-prompt
+    ;;                            yas-ido-prompt
+    ;;                            yas-completing-prompt))
+    (add-hook 'prog-mode-hook
             '(lambda ()
                (yas-minor-mode)))
 
@@ -191,8 +191,8 @@
     (require 'auto-complete)
     (global-auto-complete-mode t)
     (setq ac-auto-start 3)
-    
-     Auto complete dictionary configuration
+
+    ;; Auto complete dictionary configuration
     (when (require 'auto-complete-config nil 'noerror))
     (setq ac-comphist-file "~/.emacs.d/ac-comphist.dat")
     (ac-config-default)
