@@ -1,0 +1,199 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Vasudev Kamath
+#+EMAIL: kamathvasudev@gmail.com
+#+OPTIONS: toc:3 num:nil ^:nil
+# table of contents down to level 2
+# no section numbers
+# don't use Tex syntax for sub and subscripts
+# See http://orgmode.org/manual/Export-options.html
+# Time-Stamp: <<2013-05-07 Tue>
+
+* Emacs Configuration in Org-Mode
+  Inspired by Deepak Tripathi, literate programming using org-mode,
+  idea is to have one .emacs that can be bootstrapped anywhere using
+  package.el
+  #+BEGIN_EXAMPLE emacs-lisp
+   ;; works only in Emacs24 and above
+   (org-babel-load-file
+    (expand-file-name "copyninja-emacs.org"
+                      user-emacs-directory))
+  #+END_EXAMPLE
+* Load from Elpa
+  #+BEGIN_SRC emacs-lisp
+   ;; Initialize elpa folder stuff
+   (package-initialize)
+  #+END_SRC
+* Emacs custom set variables
+  #+BEGIN_SRC emacs-lisp
+    (custom-set-variables
+     ;; custom-set-variables was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+      '(column-number-mode t)
+      '(display-time-day-and-date t)
+      '(tool-bar-mode nil)
+      '(fset 'yes-or-no-p 'y-or-n-p)
+      '(global-linum-mode t)
+      '(inhibit-startup-screen t)
+      '(scroll-bar-mode nil)
+      '(mouse-wheel-mode t)
+      '(show-paren-mode t)
+      '(font-lock-maximum-decoration t)
+      '(display-battery-mode t)
+      '(battery-mode-line-format "[%t%B %b%p%% %t]")
+      '(globa-font-lock-mode t)
+      '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
+      '(debian-bug-download-directory "~/.emacs.d/debbugs/")
+      '(debian-bug-helper-program (quote reporbug))
+      '(user-full-name "Vasudev Kamath")
+      '(user-mail-address "kamathvasudev@gmail.com")
+     )
+  #+END_SRC
+* Custom Functions
+  #+BEGIN_SRC emacs-lisp
+    ;; -------------------------------------------------------------------
+    ;; Custom functions
+    ;; -------------------------------------------------------------------
+    ;; From http://www.emacsblog.org/2007/01/17/indent-whole-buffer/
+    ;; function to indent whole buffer
+    ;; To use you need to type M-x iwb
+    (defun iwb ()
+       "indent whole buffer"
+       (interactive)
+       (delete-trailing-whitespace)
+       (indent-region (point-min) (point-max) nil)
+       (untabify (point-min) (point-max)))
+     
+    ;; Switch or create scratch buffer any time
+    (defun openScratch()
+      (interactive)
+      (switch-to-buffer "*scratch*"))
+     
+    ;; To work in full screen mode
+    (defun fullscreen ()
+      (interactive)
+      (set-frame-parameter nil 'fullscreen
+                           (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+    ;; Open my todo file
+    (defun openTODO ()
+      (interactive)
+      (find-file "~/.emacs.d/todo.org"))
+  #+END_SRC
+* Keyboard Shortcuts
+  #+BEGIN_SRC emacs-lisp
+     ;; -------------------------------------------------------------------
+     ;; Keyboard Shortcuts
+     ;; -------------------------------------------------------------------
+
+     ;; Get buffer menu with right mouse button
+     (global-set-key (kbd "<mouse=3>") 'mouse-buffer-menu)
+  
+     ;; Navigation between windows
+     (global-set-key (kbd "C-x <down>")  'windmove-down)
+     (global-set-key (kbd "C-x <up>")    'windmove-up)
+     (global-set-key (kbd "C-x <left>")  'windmove-left)
+     (global-set-key (kbd "C-x <right>") 'windmove-right)
+
+     ;; undo like windows
+     (global-set-key (kbd "C-z") 'undo)
+
+     ;; text-wrapping using auto-fill-mode
+     (global-set-key (kbd "C-c q") 'auto-fill-mode)
+
+     ;; Buffer navigation
+     (global-set-key (kbd "<C-tab>") 'bury-buffer)
+     (global-set-key (kbd "<C-S-iso-lefttab>") 'previous-buffer)
+
+     ;; Yank menu with clipboard history
+     (global-set-key "\C-cy" '(lambda ()
+                                     (interactive)
+                                      (popup-menu 'yank-menu)))
+ 
+     ;; org-export on [f5]
+     (global-set-key [f5] 'org-export-as-html)
+
+     ;; Misc short cuts
+     (global-set-key (kbd "s-<f1>") 'openTODO)
+     (global-set-key (kbd "s-~") 'start-erc)
+     (global-set-key [f11] 'fullscreen)
+     (global-set-key (kbd "s-s") 'openScratch)
+  #+END_SRC
+* Programing Related
+  #+BEGIN_SRC emacs-lisp
+    ;; cperl-mode is preferred to perl-mode
+    ;; "Brevity is the soul of wit" <foo at acm.org> 
+    (defalias 'perl-mode 'cperl-mode)
+
+    ;; turtle file mode for rdf
+    (autoload 'ttl-mode "ttl-mode" "Major mode for OWL or Turtle file" t)
+    (add-hook 'ttl-mode-hook
+              'turn-on-font-lock)
+    
+    ;; -------------------------------------------------------------------
+    ;; different modes hook based on file extension
+    ;; -------------------------------------------------------------------
+    (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+    (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+    (setq auto-mode-alist
+        (append '(
+            ("\\.pl$"           .       perl-mode)
+            ("\\.cgi$"          .       perl-mode)
+            ("\\.pm$"           .       perl-mode)       
+            ("\\.emacs$"        .       emacs-lisp-mode)
+            ("\\.sh$"           .       shell-script-mode)
+            ("\\.html$"         .       html-mode)
+            ("\\.tmpl$"         .       html-mode)
+            ("/mutt"            .       message-mode)
+            ("/alot\\..*"       .       message-mode)
+            ("\\.md$"           .       markdown-mode)
+            ("\\.js$"           .       js2-mode)
+            ("\\.n3"            .       ttl-mode)
+            ("\\.ttl"           .       ttl-mode)
+        )
+        auto-mode-alist))
+
+    ;; CSS color values to color themeselves
+    ;; http://xahlee.org/emacs/emacs_html.html
+    (defvar hexcolour-keywords
+      '(("#[abcdef[:digit:]]\\{6\\}"
+         (0 (put-text-property
+             (match-beginning 0)
+             (match-end 0)
+             'face (list :background 
+                         (match-string-no-properties 0)))))))
+    ;; Functions come from include directory
+    (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
+
+    ;; Enable elpy
+    (elpy-enable)
+
+    ;; --------------------------------------------------
+    ;; Enable yasnippet
+    ;; --------------------------------------------------
+    require 'yasnippet)
+    yas-global-mode 1)
+    yas--initialize)
+    yas-minor-mode 1)
+     
+    nable yas dropdown
+    require 'dropdown-list)
+    setq yas-prompt-functions '(yas-dropdown-prompt
+                                yas-ido-prompt
+                                yas-completing-prompt))
+    add-hook 'prog-mode-hook
+            '(lambda ()
+               (yas-minor-mode)))
+
+    ;; ---------------------------------------------------
+    ;; Auto complete
+    ;; ---------------------------------------------------
+    (require 'auto-complete)
+    (global-auto-complete-mode t)
+    (setq ac-auto-start 3)
+    
+     Auto complete dictionary configuration
+    (when (require 'auto-complete-config nil 'noerror))
+    (setq ac-comphist-file "~/.emacs.d/ac-comphist.dat")
+    (ac-config-default)
+  #+END_SRC
