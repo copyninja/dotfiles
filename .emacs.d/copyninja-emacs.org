@@ -42,7 +42,7 @@
       '(font-lock-maximum-decoration t)
       '(display-battery-mode t)
       '(battery-mode-line-format "[%t%B %b%p%% %t]")
-      '(globa-font-lock-mode t)
+      '(global-font-lock-mode t)
       '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
       '(debian-bug-download-directory "~/.emacs.d/debbugs/")
       '(debian-bug-helper-program (quote reporbug))
