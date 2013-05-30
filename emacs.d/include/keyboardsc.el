@@ -28,7 +28,7 @@
 (global-set-key "\C-cy" '(lambda ()
                            (interactive)
                            (popup-menu 'yank-menu)))
-(global-set-key (kbd "s-t") 'openTODO)
+(global-set-key (kbd "s-<f1>") 'openTODO)
 (global-set-key (kbd "s-~") 'start-erc)
 (global-set-key (kbd "s-s") 'openScratch)
 (global-set-key [f11] 'fullscreen)

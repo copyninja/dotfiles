@@ -1,0 +1,193 @@
+* Work TODO
+** DONE [#A] Get All android setup complete by tuesday nite         :Android:
+   CLOSED: [2010-09-05 Sun 13:23]
+<2010-09-04 Sat>    
+** DONE [#A] Design first proposal for Live stream app
+   CLOSED: [2010-09-05 Sun 13:23]
+<2010-09-04 Sat>
+
+** DONE [#A] Continue designing the data provider for Live stream app :Android:
+   CLOSED: [2010-10-22 Fri 20:08]
+** DONE [#A] R&D on camera preview start and stop
+   CLOSED: [2010-09-11 Sat 14:39]
+
+** DONE [#A] Start working on screen mockups provided
+   CLOSED: [2010-10-22 Fri 20:08]
+
+** DONE [#B] Design user table or ask for user table from web designers
+   CLOSED: [2010-09-25 Sat 12:05]
+
+** DONE [#A] R&D on login using open id's like google,twitter,facebook,yahoo etc.
+   CLOSED: [2010-09-25 Sat 12:05]
+   
+** DONE [#A] Network detection and taking action depending on network
+   CLOSED: [2010-09-18 Sat 08:18]
+
+** DONE [#A] If network not available recording the video 
+   CLOSED: [2010-09-18 Sat 08:18]
+
+** DONE [#A] Design screen for signup
+   CLOSED: [2010-10-02 Sat 15:01]
+
+** DONE [#A] Design the screen for events
+   CLOSED: [2010-10-22 Fri 20:09]
+** DONE [#C] Work on fist set of filed bugs                         :Android:
+   CLOSED: [2013-03-31 Sun 09:27]
+* Silpa TODO
+** DONE [#B] Fix the loading / result area issue below the api documentation :Silpa:
+   CLOSED: [2010-09-02 Thu 22:50]
+** DONE [#A] Look at the IPA result comming null when having punctuation in input string :Silpa:
+   CLOSED: [2011-05-29 Sun 23:39]
+** DONE [#C] Making all documentation ready for all modules in Silpa  :Silpa:
+   CLOSED: [2010-09-25 Sat 12:05]
+   
+** TODO [#A] Separating out each modules from Silpa
+** TODO [#A] Writing unittest cases for each modules
+** DONE [#A] Uploading all modules to pypi
+   CLOSED: [2012-09-09 Sun 22:16]
+** DONE [#A] Fix transliteration module
+   CLOSED: [2012-09-09 Sun 22:17]
+** TODO [#A] Fix hyphenation module by separating guess language. Take care of html_hyphenator
+* Ale and Sanchaya Magazine TODO
+** DONE [#B] Getting ನಿಮಗಿದು ತಿಳಿದಿದೆಯೆ section ready with few articles :Ale:
+   CLOSED: [2010-10-22 Fri 20:09]
+
+** DONE [#A] Rewrite firefox article for ale add new features in FF4.0  :Ale:
+   CLOSED: [2010-09-26 Sun 23:15]
+* Personal TODO
+** TODO [#C] Learning how to modify iptables using Python-netfilter :pyfirewall:
+** DONE [#A] Blog redesign                                             :blog:
+   CLOSED: [2010-09-26 Sun 00:38]
+** DONE [#A] Blogpost on Oauth and twitter in android                  :blog:
+   CLOSED: [2010-09-26 Sun 23:16]
+** DONE [#B] Continue revamping and cleaning up blog                   :blog:
+   CLOSED: [2011-01-01 Sat 22:06]
+** TODO [#C] Start reading Kernel hacking book
+** TODO [#C] Learn Lisp
+** TODO [#C] Learn Falcon
+** DONE [#A] Learn Perl
+   CLOSED: [2013-03-17 Sun 18:52]
+** DONE [#A] Learn about shlibs and symbol files
+   CLOSED: [2013-03-17 Sun 18:52]
+** TODO [#C] Try to add more functionality to dh-make-font
+** DONE [#A] prepare and upload dwm with new configuration files
+   CLOSED: [2012-03-31 Sat 22:17]
+** DONE [#A] Bump standards version of ruby packages and consider orphaning them
+   CLOSED: [2012-09-09 Sun 22:18]
+** DONE [#A] Asking in mentors how to deal with friendica packaget
+   CLOSED: [2012-04-20 Fri 2
+** DONE [#C] After finishing dh-make-font and learning Perl try to movte it to Perl
+   CLOSED: [2013-05-16 Thu 23:56]
+** TODO [#A] Contribute to Boxer perl for Jonas
+** TODO [#A] Contribute to smsg for Jonas
+* PyPDFLib
+** DONE move hyphenator module from silpa and make it stand alone
+   CLOSED: [2010-10-02 Sat 21:51]
+
+** DONE [#B] Rename and upload hyphenator to pypi
+   CLOSED: [2012-09-09 Sun 22:18]
+
+** DONE [#A] Create html-hyphenator distributable application using dist-utils and upload to pypi
+   CLOSED: [2012-09-09 Sun 22:18]
+** DONE [#A] Rename folder as utils and move code into hyphenation folder also remove language detection logic
+   CLOSED: [2010-10-02 Sat 23:55] 
+* Debian Packaging
+** DONE Work on Lekhonee Gnome package and finish it
+   CLOSED: [2010-10-22 Fri 20:11]
+** DONE [#A] Get pbuilder image read on the system
+   CLOSED: [2010-11-24 Wed 03:01]
+** DONE [#A] Work on the libdbusmenu-qt packaging and submit back to praveen
+   CLOSED: [2010-11-24 Wed 03:01]
+** DONE [#A] Learn packaging Python packages using irc logs
+   CLOSED: [2011-01-01 Sat 22:04]
+** DONE [#A] File an RFP for pypdflib
+   CLOSED: [2011-01-01 Sat 22:04]
+** DONE [#A] Package pypdflib for Debian and upload mentors
+   CLOSED: [2011-01-01 Sat 22:05]
+** DONE [#A] Get the review from mentor on packaging and get it uploaded to Debian
+   CLOSED: [2011-01-01 Sat 22:05]
+** DONE Work on fonts-johnsmith-induni
+   CLOSED: [2011-05-29 Sun 23:40]
+** DONE Work on ruby-polyglot, ruby-bcrypt, ruby-hmac for Diaspora packaging for Debian
+   CLOSED: [2011-05-29 Sun 23:40]
+** DONE [#A] Work on fonts-eeyek for Debian-IN
+   CLOSED: [2012-03-31 Sat 22:17]
+** DONE [#A] Work on aspell-kn for Debian-IN
+   CLOSED: [2011-06-04 Sat 09:47]
+** DONE [#A] Work on restructuring of ttf-indic-fonts
+   CLOSED: [2012-03-31 Sat 22:17]
+** DONE [#C] Discussion on Svn to Git moving of Debian-IN repo
+   CLOSED: [2011-12-31 Sat 00:29]
+** DONE [#A] Work on fixing rules file to dh7 for aspell- ml, or, pa, ta, te
+   CLOSED: [2011-08-23 Tue 19:59]
+** DONE [#A] Add kiwix to collab-maint
+   CLOSED: [2011-12-31 Sat 00:29]
+** DONE [#A] Create page with kiwix issues in kiwix.org
+   CLOSED: [2011-12-31 Sat 00:29]
+** DONE [#C] Finish kiwix package after they port to Xulrunner latest version
+   CLOSED: [2012-09-09 Sun 22:18]
+** DONE [#A] Update the ruby-polyglot package
+   CLOSED: [201
+** DONE [#A] Getting Falconpl packaged to Debian
+   CLOSED: [2012-09-09 Sun 22:18]
+** DONE [#A] Learn more about CMake build system
+   CLOSED: [2013-01-05 Sat 11:21]
+** DONE [#A] Split Falcon's module into new packages
+   CLOSED: [2012-09-09 Sun 22:18]
+** DONE [#A] Remove DMUA from all packages control field
+   CLOSED: [2013-01-05 Sat 11:21]
+** DONE [#A] Request Kartik and Bubulle for permission related files to ftp.debian.org
+   CLOSED: [2013-01-05 Sat 11:22]
+   
+** DONE [#A] Provide a proper discussion on some licensing stuffs for intrigeri as part of NM process
+   CLOSED: [2013-01-25 Fri 22:43]
+** DONE [#A] Start a discussion about DFSG on debian-project as per jwilk's suggestion
+   CLOSED: [2013-01-06 Sun 19:38]
+** DONE [#A] Finish the rolex work for QA team
+   CLOSED: [2013-03-17 Sun 18:53]
+** DONE [#B] Finish CTPP packaging
+   CLOSED: [2013-01-25 Fri 22:43]
+** DONE [#B] ITP OpenZIM and start packaging
+   CLOSED: [2013-01-25 Fri 22:43]
+** DONE [#B] ITP pugixml and start packaging
+   CLOSED: [2013-01-06 Sun 20:18]
+** TODO [#C] Add the admin interface
+** DONE [#A] Strip ctpp openzim and pugixml from kiwix and get it uploaded to Debian
+   CLOSED: [2013-03-31 Sun 10:09]
+** DONE [#B] Add suggests field on surf for tabbed
+   CLOSED: [2013-05-10 Fri 22:24]
+** DONE [#A] Provide Meta key alternative for tabbed
+   CLOSED: [2013-05-13 Mon 14:17]
+** DONE [#A] Discuss about lsw with Anselm
+   CLOSED: [2013-05-16 Thu 23:55]
+** DONE [#A] Upload all packages in experimental with DM permission to unstable
+   CLOSED: [2013-05-11 Sat 12:33]
+** DONE [#A] Prepare new version of suckless-tools
+   CLOSED: [2013-05-13 Mon 14:17]
+*** DONE Include xstate into suckless-tools
+    CLOSED: [2013-05-13 Mon 14:17]
+*** DONE Provide dmenu xfont alternative
+    CLOSED: [2013-05-13 Mon 14:17]
+** DONE [#A] not really: Start from libgd-gd2-perl, rename both source and binary package to be libgd-perl, and have it provide/replace/conflict libgd-gd2-perl and libgd-gd2-noxpm-perl
+   CLOSED: [2013-05-16 Thu 23:55]
+
+** TODO [#A] Deal with suckless-tools pending bugs which can be closed
+** TODO [#B] See if I can help with fontconfig
+** TODO [#A] Add kgb.conf for pkg-fonts team
+* Rolex Development
+** TODO [#A] Make version appending as optional in web interface
+** TODO [#A] Provide an optional field where contributor can provide his Name and Email address
+** TODO [#A] Make "reviewed by Debian QA Team member" instead of Debian Developer
+** TODO [#A] Integrate rolex suggested packages for list of packages
+* Dictionary Bot
+** DONE Implement monit for silpa and hindi malayalam bot in silpa vps
+   CLOSED: [2010-12-05 Sun 23:23]
+** DONE Update wiktionary.py for kannada bot
+   CLOSED: [2010-12-05 Sun 23:23]
+** DONE Check and improve performance of kannada dictionary bot
+   CLOSED: [2010-12-05 Sun 23:23]
+** TODO [#C] Adding hunspell suggestion module developed by Ershad
+** DONE [#B] Try and redesign dictionary bot
+   CLOSED: [2013-01-06 Sun 19:39]
+** DONE [#B] Try rewriting the bot in perl to allow multi account login which sleekxmpp is not allowing
+   CLOSED: [2013-03-17 Sun 18:53]

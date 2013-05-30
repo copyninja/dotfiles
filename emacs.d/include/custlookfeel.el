@@ -21,43 +21,18 @@
 (setq inhibit-startup-message t)
 
 ;; Space indentation
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)
-(setq c-basic-indent 4)
-(setq c-basic-offset 4)
+;; (setq-default indent-tabs-mode nil)
+;; (setq tab-width 4)
+;; (setq c-basic-indent 4)
+;; (setq c-basic-offs)
 
 
-;;------------------------------------------
-;; Color themes
-;;------------------------------------------
+;; theme
+;;(load-theme 'inkpot t)
 
-;; load my color themese
-(load-file "~/.emacs.d/site-lisp/color-theme/zen-and-art.el")
-(load-file "~/.emacs.d/site-lisp/color-theme/zenburn.el")
-
-(require 'color-theme)
-(color-theme-initialize)
-
-;; My favourite
-(color-theme-zenburn)
-;; (color-theme-clarity)
-
-
-
-
-;; Clean up the minibuffer line
-;; Clean up the status line (From emacs-fu)
-
-(when (require 'diminish nil 'noerror)
-(eval-after-load "company"
-   '(diminish 'company-mode "Cmp"))
-(eval-after-load "abbrev"
-   '(diminish 'abbrev-mode "Ab"))
-(eval-after-load "yasnippet"
-   '(diminish 'yas/minor-mode "Y")))
 
 ;; PC style selection
-(pc-selection-mode 1)
+;;(pc-selection-mode 1)
 
 ;; "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
