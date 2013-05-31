@@ -154,17 +154,9 @@
         )
         auto-mode-alist))
 
-    ;; CSS color values to color themeselves
-    ;; http://xahlee.org/emacs/emacs_html.html
-    (defvar hexcolour-keywords
-      '(("#[abcdef[:digit:]]\\{6\\}"
-         (0 (put-text-property
-             (match-beginning 0)
-             (match-end 0)
-             'face (list :background
-                         (match-string-no-properties 0)))))))
-    ;; Functions come from include directory
-    (add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
+    ;; Hook rainbow-mode to css and html
+    (add-hook 'css-mode-hook  'rainbow-mode)
+    (add-hook 'html-mode-hook 'rainbow-mode)
 
     ;; Enable elpy
     (elpy-enable)
