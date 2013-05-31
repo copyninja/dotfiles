@@ -48,6 +48,7 @@
       '(debian-bug-helper-program (quote reporbug))
       '(user-full-name "Vasudev Kamath")
       '(user-mail-address "kamathvasudev@gmail.com")
+      '(visible-bell t)
      )
   #+END_SRC
 * Custom Functions
