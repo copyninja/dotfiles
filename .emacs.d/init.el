@@ -8,9 +8,12 @@
                           ("marmalade" . "http://marmalade-repo.org/packages/")
                           ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; Lets first initialize elpa to get list of installed packages
+;; First initialize ELPA
 (package-initialize)
-(package-refresh-contents)
+
+;; See if the archive is already read else hit the archives
+(unless package-activated-list
+  (package-refresh-contents))
 
 ;; Packages that I need
 (setq packages-list
