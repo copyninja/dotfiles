@@ -3,3 +3,4 @@ copyninja-emacs.el
 /.emacs.d/elpa/
 /.emacs.d/url/cookies
 /.emacs.d/url/cookies~
+/.emacs.d/ac-comphist.dat
