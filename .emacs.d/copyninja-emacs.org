@@ -49,6 +49,7 @@
       '(user-full-name "Vasudev Kamath")
       '(user-mail-address "kamathvasudev@gmail.com")
       '(visible-bell t)
+      '(custom-safe-themes t)
      )
   #+END_SRC
 * Custom Functions
@@ -189,4 +190,12 @@
     (when (require 'auto-complete-config nil 'noerror))
     (setq ac-comphist-file "~/.emacs.d/ac-comphist.dat")
     (ac-config-default)
+  #+END_SRC
+* UI related
+  #+BEGIN_SRC emacs-lisp
+   ;; Load a theme
+   (load-theme 'inkpot)
+
+   ;; Set the font
+   (set-frame-font "FreeMono Bold Italic")
   #+END_SRC
