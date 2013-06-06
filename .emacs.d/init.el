@@ -38,7 +38,8 @@
          autopair
          multi-term
          notify
-         undo-tree)))
+         undo-tree
+	 rainbow-delimiters)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
