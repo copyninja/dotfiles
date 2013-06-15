@@ -30,27 +30,38 @@
      ;; If you edit it by hand, you could mess it up, so be careful.
      ;; Your init file should contain only one such instance.
      ;; If there is more than one, they won't work right.
-      '(column-number-mode t)
-      '(display-time-day-and-date t)
-      '(tool-bar-mode nil)
-      '(fset 'yes-or-no-p 'y-or-n-p)
-      '(global-linum-mode t)
-      '(inhibit-startup-screen t)
-      '(scroll-bar-mode nil)
-      '(mouse-wheel-mode t)
-      '(show-paren-mode t)
-      '(font-lock-maximum-decoration t)
-      '(display-battery-mode t)
-      '(battery-mode-line-format "[%t%B %b%p%% %t]")
-      '(global-font-lock-mode t)
       '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
       '(debian-bug-download-directory "~/.emacs.d/debbugs/")
       '(debian-bug-helper-program (quote reporbug))
       '(user-full-name "Vasudev Kamath")
       '(user-mail-address "kamathvasudev@gmail.com")
-      '(visible-bell t)
       '(custom-safe-themes t)
      )
+     
+      ;; Enable line and column numbering
+     (column-number-mode t)
+     (global-linum-mode t)
+
+     ;; Display time and date
+     (display-time)
+
+     ;; Don't need toolbar
+     (setq tool-bar-mode nil)
+
+     ;; Don't show scrollbars
+     (scroll-bar-mode nil)
+
+     ;; don't show startup message
+     (setq inhibit-startup-message t)
+
+     ;; Don't want yes or no lets settle for y or n
+     (fset 'yes-or-no-p 'y-or-n-p)
+
+     ;; Paranthesis matching
+     (show-paren-mode t)
+
+     ;; mouse wheel enabling
+     (mouse-wheel-mode t)
   #+END_SRC
 * Custom Functions
   #+BEGIN_SRC emacs-lisp
@@ -196,6 +207,13 @@
 
     ;; Enable coloring paranthesis pair
     (global-rainbow-delimiters-mode)
+
+    ;; fontlock and decoration
+    (setq font-lock-maximum-decoration t)
+    (global-font-lock-mode t)
+
+    ;; Battery info
+    (display-battery-mode t)
   #+END_SRC
 * UI related
   #+BEGIN_SRC emacs-lisp
