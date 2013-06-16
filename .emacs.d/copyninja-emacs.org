@@ -49,7 +49,7 @@
      (setq tool-bar-mode nil)
 
      ;; Don't show scrollbars
-     (scroll-bar-mode nil)
+     (set-scroll-bar-mode nil)
 
      ;; don't show startup message
      (setq inhibit-startup-message t)
