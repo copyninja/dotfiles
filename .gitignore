@@ -1,9 +1,9 @@
+*~
 /.emacs.d/auto-save-list/
 copyninja-emacs.el
 /.emacs.d/elpa/
-/.emacs.d/url/cookies
-/.emacs.d/url/cookies~
+/.emacs.d/url/
 /.emacs.d/ac-comphist.dat
-/.emacs.d/copyninja-emacs.el~
 /.emacs.d/ido.last
 /.emacs.d/tramp
+/.emacs.d/todo/
