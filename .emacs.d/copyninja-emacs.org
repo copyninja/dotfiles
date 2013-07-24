@@ -91,7 +91,7 @@
     ;; Open my todo file
     (defun openTODO ()
       (interactive)
-      (find-file "~/.emacs.d/todo.org"))
+      (find-file "~/.emacs.d/todo/todo.org"))
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
