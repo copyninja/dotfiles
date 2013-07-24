@@ -39,7 +39,13 @@
          multi-term
          notify
          undo-tree
-	 rainbow-delimiters)))
+	 rainbow-delimiters
+	 go-mode
+	 go-autocomplete
+	 go-eldoc
+	 go-errcheck
+	 go-play
+	 go-snippets)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
