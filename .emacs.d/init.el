@@ -45,7 +45,8 @@
 	 go-eldoc
 	 go-errcheck
 	 go-play
-	 go-snippets)))
+	 go-snippets
+	 smartparens)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
