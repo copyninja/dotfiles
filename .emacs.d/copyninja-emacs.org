@@ -59,6 +59,9 @@
 
      ;; mouse wheel enabling
      (mouse-wheel-mode t)
+
+     ;; show date and time
+     (setq display-time-day-and-date t)
   #+END_SRC
 * Custom Functions
   #+BEGIN_SRC emacs-lisp
