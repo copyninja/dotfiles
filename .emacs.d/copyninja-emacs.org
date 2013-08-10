@@ -37,7 +37,7 @@
       '(user-mail-address "kamathvasudev@gmail.com")
       '(custom-safe-themes t)
      )
-     
+
       ;; Enable line and column numbering
      (column-number-mode t)
      (global-linum-mode t)
@@ -89,9 +89,9 @@
       (set-frame-parameter nil 'fullscreen
                            (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
     ;; Open my todo file
-    (defun openTODO ()
-      (interactive)
-      (find-file "~/.emacs.d/todo/todo.org"))
+    (defun openTODO (todofile)
+      (interactive "FTodo File: ")
+      (find-file todofile))
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
