@@ -223,8 +223,11 @@
     ;; Display time and date
     (display-time)
 
+    ;; smartparens enable
+    (smartparens-global-mode t)
+
     ;; Set the fonts
-    (custom-set-faces
+    (custom-set-facesd
      ;; custom-set-faces was added by Custom.
      ;; If you edit it by hand, you could mess it up, so be careful.
      ;; Your init file should contain only one such instance.
