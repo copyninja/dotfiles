@@ -92,6 +92,13 @@
     (defun openTODO (todofile)
       (interactive "FTodo File: ")
       (find-file todofile))
+
+    ;; Custom function to overwrite C-x <left> and C-x <right>
+    (defun rebind-smartparen-keys()
+      (global-unset-key (kbd "C-<left>"))
+      (global-unset-key (kbd "C-<right>"))
+      (global-set-key (kbd "C-<right>") 'sp-forward-slurp-sexp)
+      (global-set-key (kbd "C-<left>") 'sp-backward-barf-sexp))
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
@@ -169,6 +176,10 @@
     ;; Hook rainbow-mode to css and html
     (add-hook 'css-mode-hook  'rainbow-mode)
     (add-hook 'html-mode-hook 'rainbow-mode)
+
+    ;; Hooks for lisp-mode emacs-lisp-mode for smartparens
+    (add-hook 'emacs-lisp-mode-hook 'rebind-smartparen-keys)
+    (add-hook 'lisp-mode-hook 'rebind-smartparen-keys)
 
     ;; Enable elpy
     (elpy-enable)
