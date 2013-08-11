@@ -299,6 +299,10 @@
     (setq eshell-cmpl-cycle-completions nil)
     (setq pcomplete-cycle-completions nil)
 
+    ;; scroll to bottom on output
+    (setq eshell-scroll-to-bottom-on-output t)
+    (setq eshell-scroll-show-maximum-output t)
+
     ;; Ignore .git .svn CVS directories on completions
     (setq  eshell-cmpl-dir-ignore  "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
