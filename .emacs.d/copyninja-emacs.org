@@ -277,3 +277,69 @@
      ;; If there is more than one, they won't work right.
      '(default ((t (:family "FreeMono" :foundry "unknown" :slant italic :weight bold :height 113 :width normal)))))
   #+END_SRC
+* Eshell Configuration
+  :PROPERTIES:
+  :tangle:   copyninja-eshell.el
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    ;; Environment variable
+    (setenv "EDITOR" "emacsclient")
+    (setenv "LC_ALL" "C")
+    (setenv "LANG" "en_US.UTF8")
+
+    ;; eshell variable
+    (setq eshell-history-size 20000)
+    (setq eshell-save-history-on-exit t)
+    (setq eshell-hist-ignoredups t)
+    (setq eshell-prompt-regexp "^[^#$]*[#$] ")
+
+    ;; some custom variable
+    (setq username (getenv "USER"))
+    (setq hostname (s-trim (shell-command-to-string "echo $HOST")))
+
+    ;; Enable cycle completion on tabs
+    (setq eshell-cmpl-cycle-completions t)
+
+    ;; Zsh like behaviour
+    (setq pcomplete-cycle-completions t)
+
+    ;; Ignore .git .svn CVS directories on completions
+    (setq  eshell-cmpl-dir-ignore  "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
+
+    (eval-after-load 'esh-opt
+      '(progn
+         (load "em-cmpl")
+         (load "em-prompt")
+         (load "em-term")
+         (load "em-hist")
+         (load "em-unix")
+         (setenv "PAGER" "cat")
+         (add-hook 'eshell-mode-hook
+                   '(lambda() (define-key eshell-mode-map "\C-a" 'eshell-bol)))
+         (add-to-list 'eshell-visual-commands "ssh")
+         (add-to-list 'eshell-visual-commands "tail")
+         (add-to-list 'eshell-visual-commands "top")
+         (add-to-list 'eshell-command-completions-alist
+                      '("gunzip" "gz\\'"))
+         (add-to-list 'eshell-command-completions-alist
+                      '("tar" "\\(\\.tar|\\.tgz\\||\\.tar\\.gz\\)\\'"))))
+
+    ;;from http://www.khngai.com/emacs/eshell.php
+    (defun eshell/clear ()
+      "04Dec2001 - sailor, to clear the eshell buffer."
+      (interactive)
+      (let ((inhibit-read-only t))
+        (erase-buffer)))
+
+    ;; Set the prompt function
+    (setq eshell-prompt-function
+          (lambda () (concat
+                       "[" username "@" hostname ": "
+                         (if (string= (pwd-repl-home (eshell/pwd)) (getenv "HOME"))
+                             "~" (pwd-repl-home (eshell/pwd))) "]"
+                             (if (= (user-uid) 0) " # " " $ "))))
+
+    ;; scroll to bottom on output
+    (setq eshell-scroll-to-bottom-on-output t)
+    (setq eshell-scroll-show-maximum-output t)
+  #+END_SRC
