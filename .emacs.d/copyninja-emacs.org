@@ -99,6 +99,37 @@
       (global-unset-key (kbd "C-<right>"))
       (global-set-key (kbd "C-<right>") 'sp-forward-slurp-sexp)
       (global-set-key (kbd "C-<left>") 'sp-backward-barf-sexp))
+
+    ;; function to trim strings copied from
+    ;; http://ergoemacs.org/emacs/modernization_elisp_lib_problem.html
+    (defun s-trim-left (s)
+      "Remove whitespace at the beginning of S."
+      (if (string-match "\\`[ \t\n\r]+" s)
+          (replace-match "" t t s)
+        s))
+
+    (defun s-trim-right (s)
+      "Remove whitespace at the end of S."
+      (if (string-match "[ \t\n\r]+\\'" s)
+          (replace-match "" t t s)
+        s))
+
+    (defun s-trim (s)
+      "Remove whitespace at the beginning and end of S."
+      (s-trim-left (s-trim-right s)))
+
+    ;; path manipulation
+    ;; copied from  http://blog.liangzan.net/blog/2012/12/12/customizing-your-emacs-eshell-prompt/
+    (defun pwd-repl-home (pwd)
+      (interactive)
+      (let* ((home (expand-file-name (getenv "HOME")))
+       (home-len (length home)))
+        (if (and
+       (>= (length pwd) home-len)
+       (equal home (substring pwd 0 home-len)))
+      (concat "~" (substring pwd home-len))
+          pwd)))
+
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
