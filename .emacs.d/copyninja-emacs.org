@@ -322,7 +322,8 @@
          (add-to-list 'eshell-command-completions-alist
                       '("gunzip" "gz\\'"))
          (add-to-list 'eshell-command-completions-alist
-                      '("tar" "\\(\\.tar|\\.tgz\\||\\.tar\\.gz\\)\\'"))))
+                      '("tar" "\\(\\.tar|\\.tgz\\||\\.tar\\.gz\\)\\'")))
+      (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color))
 
     ;;from http://www.khngai.com/emacs/eshell.php
     (defun eshell/clear ()
@@ -339,7 +340,9 @@
                              "~" (pwd-repl-home (eshell/pwd))) "]"
                              (if (= (user-uid) 0) " # " " $ "))))
 
-    ;; scroll to bottom on output
-    (setq eshell-scroll-to-bottom-on-output t)
-    (setq eshell-scroll-show-maximum-output t)
+    ;; This will transform ansi color to faces in emacs shell
+    (ansi-color-for-comint-mode-on)
+    (defun eshell-handle-ansi-color()
+      (ansi-color-apply-on-region eshell-last-output-start
+                                  eshell-last-output-end))
   #+END_SRC
