@@ -8,3 +8,4 @@ copyninja-emacs.el
 /.emacs.d/tramp
 /.emacs.d/todo/
 /.emacs.d/bookmarks
+/.emacs.d/copyninja-eshell.el
