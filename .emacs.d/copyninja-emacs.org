@@ -244,9 +244,6 @@
     (setq ac-comphist-file "~/.emacs.d/ac-comphist.dat")
     (ac-config-default)
 
-    ;; Enable autopair
-    (autopair-mode)
-
     ;; Enable coloring paranthesis pair
     (global-rainbow-delimiters-mode)
 
