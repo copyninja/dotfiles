@@ -35,7 +35,6 @@
          dired+
          scratch
          rfringe
-         autopair
          multi-term
          notify
          undo-tree
