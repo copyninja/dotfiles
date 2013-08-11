@@ -275,10 +275,10 @@
      '(default ((t (:family "FreeMono" :foundry "unknown" :slant italic :weight bold :height 113 :width normal)))))
   #+END_SRC
 * Eshell Configuration
-  :PROPERTIES:
-  :tangle:   copyninja-eshell.el
-  :END:
   #+BEGIN_SRC emacs-lisp
+    ;; Need eshell first
+    (require 'eshell)
+
     ;; Environment variable
     (setenv "EDITOR" "emacsclient")
     (setenv "LC_ALL" "C")
