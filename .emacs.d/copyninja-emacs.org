@@ -72,11 +72,11 @@
     ;; function to indent whole buffer
     ;; To use you need to type M-x iwb
     (defun iwb ()
-       "indent whole buffer"
-       (interactive)
-       (delete-trailing-whitespace)
-       (indent-region (point-min) (point-max) nil)
-       (untabify (point-min) (point-max)))
+      "indent whole buffer"
+      (interactive)
+      (delete-trailing-whitespace)
+      (indent-region (point-min) (point-max) nil)
+      (untabify (point-min) (point-max)))
 
     ;; Switch or create scratch buffer any time
     (defun openScratch()
