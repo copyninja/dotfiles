@@ -264,7 +264,6 @@
 
     ;; smartparens enable and disable autopair
     (smartparens-global-mode t)
-    (autopair-mode nil)
 
     ;; Set the fonts
     (custom-set-faces
