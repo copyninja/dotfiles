@@ -294,11 +294,10 @@
     (setq username (getenv "USER"))
     (setq hostname (s-trim (shell-command-to-string "echo $HOST")))
 
-    ;; Enable cycle completion on tabs
-    (setq eshell-cmpl-cycle-completions t)
-
-    ;; Zsh like behaviour
-    (setq pcomplete-cycle-completions t)
+    ;; Disable cycle completion on tabs for speed ups otherwise tabbing
+    ;; takes forever generating completions
+    (setq eshell-cmpl-cycle-completions nil)
+    (setq pcomplete-cycle-completions nil)
 
     ;; Ignore .git .svn CVS directories on completions
     (setq  eshell-cmpl-dir-ignore  "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
