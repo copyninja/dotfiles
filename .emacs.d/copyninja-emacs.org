@@ -404,7 +404,7 @@
       (ansi-color-apply-on-region eshell-last-output-start
                                   eshell-last-output-end))
 
-    ;;Here’s how to compile in the background, also by Kai.
+    ;;Here's how to compile in the background, also by Kai.
     (defun eshell/ec (&rest args)
       "Use `compile' to do background makes."
       (if (eshell-interactive-output-p)
