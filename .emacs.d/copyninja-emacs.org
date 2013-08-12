@@ -30,38 +30,38 @@
      ;; If you edit it by hand, you could mess it up, so be careful.
      ;; Your init file should contain only one such instance.
      ;; If there is more than one, they won't work right.
-      '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
-      '(debian-bug-download-directory "~/.emacs.d/debbugs/")
-      '(debian-bug-helper-program (quote reporbug))
-      '(user-full-name "Vasudev Kamath")
-      '(user-mail-address "kamathvasudev@gmail.com")
-      '(custom-safe-themes t)
+     '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
+     '(debian-bug-download-directory "~/.emacs.d/debbugs/")
+     '(debian-bug-helper-program (quote reporbug))
+     '(user-full-name "Vasudev Kamath")
+     '(user-mail-address "kamathvasudev@gmail.com")
+     '(custom-safe-themes t)
      )
 
-      ;; Enable line and column numbering
-     (column-number-mode t)
-     (global-linum-mode t)
+    ;; Enable line and column numbering
+    (column-number-mode t)
+    (global-linum-mode t)
 
-     ;; Don't need toolbar
-     (setq tool-bar-mode nil)
+    ;; Don't need toolbar
+    (setq tool-bar-mode nil)
 
-     ;; Don't show scrollbars
-     (set-scroll-bar-mode nil)
+    ;; Don't show scrollbars
+    (set-scroll-bar-mode nil)
 
-     ;; don't show startup message
-     (setq inhibit-startup-message t)
+    ;; don't show startup message
+    (setq inhibit-startup-message t)
 
-     ;; Don't want yes or no lets settle for y or n
-     (fset 'yes-or-no-p 'y-or-n-p)
+    ;; Don't want yes or no lets settle for y or n
+    (fset 'yes-or-no-p 'y-or-n-p)
 
-     ;; Paranthesis matching
-     (show-paren-mode t)
+    ;; Paranthesis matching
+    (show-paren-mode t)
 
-     ;; mouse wheel enabling
-     (mouse-wheel-mode t)
+    ;; mouse wheel enabling
+    (mouse-wheel-mode t)
 
-     ;; show date and time
-     (setq display-time-day-and-date t)
+    ;; show date and time
+    (setq display-time-day-and-date t)
   #+END_SRC
 * Custom Functions
   #+BEGIN_SRC emacs-lisp
@@ -404,7 +404,7 @@
       (ansi-color-apply-on-region eshell-last-output-start
                                   eshell-last-output-end))
 
-    ;;Here’s how to compile in the background, also by Kai.
+    ;;Here's how to compile in the background, also by Kai.
     (defun eshell/ec (&rest args)
       "Use `compile' to do background makes."
       (if (eshell-interactive-output-p)
@@ -419,3 +419,37 @@
                  (eshell-parse-command (car l) (cdr l))))))
     (put 'eshell/ec 'eshell-no-numeric-conversions t)
   #+END_SRC
+* Windows OS configurations
+  #+BEGIN_SRC emacs-lisp
+    (defun set-plink-path()
+      "Appends the path to plink.exe and pscp.exe to path modify accordingly"
+      (setq exec-path
+            (append exec-path '("c:/Users/invakam2/Documents/plink"))))
+
+    (defun configure-tramp-on-windows()
+      "Configures tramp to use pscp instead of SSH"
+      (require 'tramp)
+      (require 'tramp-sh)
+      (setq tramp-default-method "pscp")
+      (eval-after-load 'tramp '
+        (progn
+          (setenv "SHELL" "/bin/bash")
+          (setenv "TERM" "dumb"))))
+
+    (defun configure-emacs-on-windows()
+      "Configures plink path and sets required fonts and then configures tramp"
+      (set-plink-path)
+      (custom-set-faces
+       ;; custom-set-faces was added by Custom.
+       ;; If you edit it by hand, you could mess it up, so be careful.
+       ;; Your init file should contain only one such instance.
+       ;; If there is more than one, they won't work right.
+       '(default ((t (:family "Monaco" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
+      (scroll-bar-mode -1)
+      (tool-bar-mode -1)
+      (configure-tramp-on-windows))
+
+
+    (if (string= system-type "windows-nt")
+        (configure-emacs-on-windows))
+     #+END_SRC	
