@@ -419,3 +419,37 @@
                  (eshell-parse-command (car l) (cdr l))))))
     (put 'eshell/ec 'eshell-no-numeric-conversions t)
   #+END_SRC
+* Windows OS configurations
+  #+BEGIN_SRC emacs-lisp
+    (defun set-plink-path()
+      "Appends the path to plink.exe and pscp.exe to path modify accordingly"
+      (setq exec-path
+            (append exec-path '("c:/Users/invakam2/Documents/plink"))))
+
+    (defun configure-tramp-on-windows()
+      "Configures tramp to use pscp instead of SSH"
+      (require 'tramp)
+      (require 'tramp-sh)
+      (setq tramp-default-method "pscp")
+      (eval-after-load 'tramp '
+        (progn
+          (setenv "SHELL" "/bin/bash")
+          (setenv "TERM" "dumb"))))
+
+    (defun configure-emacs-on-windows()
+      "Configures plink path and sets required fonts and then configures tramp"
+      (set-plink-path)
+      (custom-set-faces
+       ;; custom-set-faces was added by Custom.
+       ;; If you edit it by hand, you could mess it up, so be careful.
+       ;; Your init file should contain only one such instance.
+       ;; If there is more than one, they won't work right.
+       '(default ((t (:family "Monaco" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
+      (scroll-bar-mode -1)
+      (tool-bar-mode -1)
+      (configure-tramp-on-windows))
+
+
+    (if (string= system-type "windows-nt")
+        (configure-emacs-on-windows))
+  #+END_SRC
