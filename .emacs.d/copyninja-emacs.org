@@ -176,6 +176,18 @@
     ;; "Brevity is the soul of wit" <foo at acm.org>
     (defalias 'perl-mode 'cperl-mode)
 
+    ;; Enable elpy
+    (elpy-enable)
+
+    ;; Eldoc mode enable
+    (eldoc-mode t)
+
+    ;; smartparens enable and disable autopair
+    (smartparens-global-mode t)
+
+    ;; Add hook for go-mode to enable eldoc for go
+    (add-hook 'go-mode-hook 'go-eldoc-setup)
+
     ;; turtle file mode for rdf
     (autoload 'ttl-mode "ttl-mode" "Major mode for OWL or Turtle file" t)
     (add-hook 'ttl-mode-hook
@@ -211,12 +223,6 @@
     ;; Hooks for lisp-mode emacs-lisp-mode for smartparens
     (add-hook 'emacs-lisp-mode-hook 'rebind-smartparen-keys)
     (add-hook 'lisp-mode-hook 'rebind-smartparen-keys)
-
-    ;; Enable elpy
-    (elpy-enable)
-
-    ;; smartparens enable and disable autopair
-    (smartparens-global-mode t)
 
     ;; --------------------------------------------------
     ;; Enable yasnippet
