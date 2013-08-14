@@ -215,6 +215,9 @@
     ;; Enable elpy
     (elpy-enable)
 
+    ;; smartparens enable and disable autopair
+    (smartparens-global-mode t)
+
     ;; --------------------------------------------------
     ;; Enable yasnippet
     ;; --------------------------------------------------
@@ -251,8 +254,6 @@
     (setq font-lock-maximum-decoration t)
     (global-font-lock-mode t)
 
-    ;; Battery info
-    (display-battery-mode t)
   #+END_SRC
 * UI related
   #+BEGIN_SRC emacs-lisp
@@ -262,8 +263,8 @@
     ;; Display time and date
     (display-time)
 
-    ;; smartparens enable and disable autopair
-    (smartparens-global-mode t)
+    ;; Battery info
+    (display-battery-mode t)
 
     ;;--------------------------------------------
     ;; Some prettiness in prog langs & modelines
