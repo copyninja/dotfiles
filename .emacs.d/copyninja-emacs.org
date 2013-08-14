@@ -261,8 +261,12 @@
     (global-font-lock-mode t)
 
   #+END_SRC
-* UI related
+* UI and Text editing related customizations
   #+BEGIN_SRC emacs-lisp
+    ;; --------------------------------------------------
+    ;; UI and Text editing related
+    ;; --------------------------------------------------
+
     ;; Load a theme
     (load-theme 'inkpot)
 
