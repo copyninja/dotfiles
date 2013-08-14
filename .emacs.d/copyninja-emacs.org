@@ -224,10 +224,10 @@
     (yas-minor-mode 1)
 
     ;;Enable yas dropdown
-    ;;(require 'dropdown-list)
-    ;;(setq yas-prompt-functions '(yas-dropdown-prompt
-    ;;                            yas-ido-prompt
-    ;;                            yas-completing-prompt))
+    (require 'dropdown-list)
+    (setq yas-prompt-functions '(yas-dropdown-prompt
+                                 yas-ido-prompt
+                                 yas-completing-prompt))
     (add-hook 'prog-mode-hook
             '(lambda ()
                (yas-minor-mode)))

@@ -24,6 +24,7 @@
          rainbow-mode
          elpy
          yasnippet
+	 dropdown-list
          solarized-theme
          inkpot-theme
          zenburn-theme
