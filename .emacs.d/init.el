@@ -29,7 +29,6 @@
          inkpot-theme
          zenburn-theme
          zen-and-art-theme
-         ipython
          popup
          php-mode
          highlight-80+
