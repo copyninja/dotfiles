@@ -272,6 +272,10 @@
     ;; Battery info
     (display-battery-mode t)
 
+    ;; Hightlight lines more than 80 chars
+    (add-hook 'text-mode-hook 'highlight-80+-mode)
+    (add-hook 'prog-mode-hook 'highlight-80+-mode)
+
     ;;--------------------------------------------
     ;; Some prettiness in prog langs & modelines
     ;; (copied from theanalyst)
