@@ -172,6 +172,10 @@
   #+END_SRC
 * Programing Related
   #+BEGIN_SRC emacs-lisp
+    ;; --------------------------------------------------
+    ;; Programming mode customization and hooks
+    ;; --------------------------------------------------
+
     ;; cperl-mode is preferred to perl-mode
     ;; "Brevity is the soul of wit" <foo at acm.org>
     (defalias 'perl-mode 'cperl-mode)
@@ -187,6 +191,7 @@
 
     ;; Add hook for go-mode to enable eldoc for go
     (add-hook 'go-mode-hook 'go-eldoc-setup)
+
 
     ;; turtle file mode for rdf
     (autoload 'ttl-mode "ttl-mode" "Major mode for OWL or Turtle file" t)
@@ -223,7 +228,6 @@
     ;; Hooks for lisp-mode emacs-lisp-mode for smartparens
     (add-hook 'emacs-lisp-mode-hook 'rebind-smartparen-keys)
     (add-hook 'lisp-mode-hook 'rebind-smartparen-keys)
-
     ;; --------------------------------------------------
     ;; Enable yasnippet
     ;; --------------------------------------------------
