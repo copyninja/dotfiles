@@ -45,6 +45,7 @@
 	 go-errcheck
 	 go-play
 	 go-snippets
+	 flycheck
 	 smartparens)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.

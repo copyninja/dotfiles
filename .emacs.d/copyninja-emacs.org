@@ -260,6 +260,16 @@
     (setq font-lock-maximum-decoration t)
     (global-font-lock-mode t)
 
+    ;; Go mode flycheck
+    (eval-after-load 'go-mode
+      '((progn
+          (flycheck-declare-checker go-fmt
+            "Go syntax and style checker using gofmt utility"
+            :command '("gofmt" source-inplace)
+            :error-patterns '(("^\\(?1:.*\\):\\(?2:[0-9]+\\):\\(?3:[0-9]+\\): \\(?4:.*\\)$" error))
+            :modes 'go-mode)
+          (add-to-list 'flycheck-checkers 'go-gofmt))))
+    (add-hook 'go-mode-hook 'flycheck-mode)
   #+END_SRC
 * UI and Text editing related customizations
   #+BEGIN_SRC emacs-lisp
