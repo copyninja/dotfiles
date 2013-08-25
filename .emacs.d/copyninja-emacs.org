@@ -334,13 +334,17 @@
     ;; Hook to clean up the mode lines
     (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
+    ;; higlight lines on dired mode
+    (add-hook dired-mode-hook 'hl-line-mode)
+
     ;; Set the fonts
     (custom-set-faces
      ;; custom-set-faces was added by Custom.
      ;; If you edit it by hand, you could mess it up, so be careful.
      ;; Your init file should contain only one such instance.
      ;; If there is more than one, they won't work right.
-     '(default ((t (:family "FreeMono" :foundry "unknown" :slant italic :weight bold :height 113 :width normal)))))
+     '(default ((t (:family "FreeMono" :foundry "unknown" :slant italic
+                            :weight bold :height 113 :width normal)))))
   #+END_SRC
 * Eshell Configuration
   #+BEGIN_SRC emacs-lisp
