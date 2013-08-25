@@ -23,6 +23,7 @@
          magit
          rainbow-mode
          elpy
+	 pep8
          yasnippet
 	 dropdown-list
          solarized-theme
@@ -46,7 +47,8 @@
 	 go-play
 	 go-snippets
 	 flycheck
-	 smartparens)))
+	 smartparens
+	 emms)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)

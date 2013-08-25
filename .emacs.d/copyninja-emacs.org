@@ -428,6 +428,17 @@
                  (eshell-parse-command (car l) (cdr l))))))
     (put 'eshell/ec 'eshell-no-numeric-conversions t)
   #+END_SRC
+* Emms configuration
+  #+BEGIN_SRC emacs-lisp
+    ;; Emms music setup
+    (require 'emms-setup)
+
+    ;; Lets enable all emms stable features along with emms-standard
+    (emms-all)
+
+    ;; Assign the players
+    (emms-default-players)
+  #+END_SRC
 * Windows OS configurations
   #+BEGIN_SRC emacs-lisp
     (defun set-plink-path()
