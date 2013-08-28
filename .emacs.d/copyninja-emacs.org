@@ -463,6 +463,10 @@
           (setenv "SHELL" "/bin/bash")
           (setenv "TERM" "dumb"))))
 
+    (defun configure-hy-inferior-mode()
+      "Tell Windows how to run hy"
+      (setq hy-mode-inferior-lisp-command "python.exe -i C:/Python27/Scripts/hy"))
+
     (defun configure-emacs-on-windows()
       "Configures plink path and sets required fonts and then configures tramp"
       (set-plink-path)
@@ -474,7 +478,8 @@
        '(default ((t (:family "Monaco" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
       (scroll-bar-mode -1)
       (tool-bar-mode -1)
-      (configure-tramp-on-windows))
+      (configure-tramp-on-windows)
+      (configure-hy-inferior-mode))
 
 
     (if (string= system-type "windows-nt")
