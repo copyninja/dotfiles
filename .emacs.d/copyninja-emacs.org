@@ -449,7 +449,9 @@
     (defun set-plink-path()
       "Appends the path to plink.exe and pscp.exe to path modify accordingly"
       (setq exec-path
-            (append exec-path '("c:/Users/invakam2/Documents/plink"))))
+            (append exec-path '("c:/Users/invakam2/Documents/plink"
+                                "c:/Python27"
+                                "c:/Python27/scripts"))))
 
     (defun configure-tramp-on-windows()
       "Configures tramp to use pscp instead of SSH"
