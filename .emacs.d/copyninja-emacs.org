@@ -334,9 +334,6 @@
     ;; Hook to clean up the mode lines
     (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
-    ;; higlight lines on dired mode
-    (add-hook dired-mode-hook 'hl-line-mode)
-
     ;; Set the fonts
     (custom-set-faces
      ;; custom-set-faces was added by Custom.
