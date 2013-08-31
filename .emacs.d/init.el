@@ -48,7 +48,8 @@
 	 go-snippets
 	 flycheck
 	 smartparens
-	 emms)))
+	 emms
+	 hy-mode)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
