@@ -440,6 +440,18 @@
 
     ;; Assign the players
     (emms-default-players)
+
+    ;; Set the default music directory for and default playlist mode
+    (setq emms-source-file-default-directory "~/Music/")
+    (setq emms-playlist-default-major-mode 'emms-playlist-mode)
+
+    ;; Keybindings for volume
+    (global-set-key (kbd "C-c +") 'emms-volume-mode-plus)
+    (global-set-key (kbd "C-c -") 'emms-volume-mode-minus)
+
+    ;; display emms remaining time
+    (require 'emms-playing-time)
+    (emms-playing-time 1)
   #+END_SRC
 * Windows OS configurations
   #+BEGIN_SRC emacs-lisp
