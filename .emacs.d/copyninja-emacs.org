@@ -132,11 +132,18 @@
 
     ;; insert multi-arch value into control files
     (defun insert-multi-arch (value)
-      "Inserts Multi-Arch: value tag in proper place  in Debian control file"
+      "Inserts Multi-Arch: value tag in proper place  in Debian control
+       file. Function executes only when buffer name is control and mode is
+       debian-control-mode "
       (interactive "sMulti-Arch: ")
-      (point-min)
-      (while (re-search-forward "Architecture: \\(.+\\)" nil t)
-           (insert (format "\nMulti-Arch: %s" value))))
+      (if (and (string= major-mode "debian-control-mode")
+               (compare-strings "control" 1 7
+                                buffer-name 1 7))
+          (progn
+            (point-min)
+            (while (re-search-forward "Architecture: \\(.+\\)" nil t)
+              (insert (format "\nMulti-Arch: %s" value))))
+        (message "Sorry this function works only in debian control file")))
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
