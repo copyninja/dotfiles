@@ -9,3 +9,4 @@ copyninja-emacs.el
 /.emacs.d/todo/
 /.emacs.d/bookmarks
 /.emacs.d/copyninja-eshell.el
+/.emacs.d/emms/cache
