@@ -130,6 +130,13 @@
       (concat "~" (substring pwd home-len))
           pwd)))
 
+    ;; insert multi-arch value into control files
+    (defun insert-multi-arch (value)
+      "Inserts Multi-Arch: value tag in proper place  in Debian control file"
+      (interactive "sMulti-Arch: ")
+      (point-min)
+      (while (re-search-forward "Architecture: \\(.+\\)" nil t)
+           (insert (format "\nMulti-Arch: %s" value))))
   #+END_SRC
 * Keyboard Shortcuts
   #+BEGIN_SRC emacs-lisp
