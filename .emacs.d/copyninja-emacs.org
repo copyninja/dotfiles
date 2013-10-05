@@ -138,7 +138,7 @@
       (interactive "sMulti-Arch: ")
       (if (and (string= major-mode "debian-control-mode")
                (compare-strings "control" 1 7
-                                buffer-name 1 7))
+                                (buffer-name) 1 7))
           (progn
             (point-min)
             (while (re-search-forward "Architecture: \\(.+\\)" nil t)
