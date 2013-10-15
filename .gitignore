@@ -10,3 +10,4 @@ copyninja-emacs.el
 /.emacs.d/bookmarks
 /.emacs.d/copyninja-eshell.el
 /.emacs.d/emms/cache
+/.emacs.d/places
