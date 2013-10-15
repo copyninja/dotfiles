@@ -49,7 +49,10 @@
 	 flycheck
 	 smartparens
 	 emms
-	 hy-mode)))
+	 hy-mode
+	 ix
+	 geiser
+	 ac-geiser)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
