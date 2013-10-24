@@ -300,7 +300,7 @@
     ;; --------------------------------------------------
 
     ;; Load a theme
-    (load-theme 'inkpot)
+    (load-theme 'zenburn)
 
     ;; Display time and date
     (display-time)
