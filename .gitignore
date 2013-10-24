@@ -11,3 +11,4 @@ copyninja-emacs.el
 /.emacs.d/copyninja-eshell.el
 /.emacs.d/emms/cache
 /.emacs.d/places
+/.emacs.d/emms/history
