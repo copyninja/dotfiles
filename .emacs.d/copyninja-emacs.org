@@ -293,8 +293,10 @@
     (setq hy-mode-inferior-lisp-command
           "/home/vasudev/.virtualenvs/hy3env/bin/hy --spy")
 
-    ;; common-lisp inferior lisp mode
+    ;; SLIME setup for SBCL
     (setq inferior-lisp-program "sbcl")
+    (require 'slime)
+    (slime-setup)
   #+END_SRC
 * UI and Text editing related customizations
   #+BEGIN_SRC emacs-lisp
