@@ -476,6 +476,22 @@
     (require 'emms-playing-time)
     (emms-playing-time 1)
   #+END_SRC
+* SMTP Configuration
+  #+BEGIN_SRC emacs-lisp
+    (require 'smtpmail)
+
+    ;; Send the entire buffer using mail
+    (setq send-mail-function 'smtpmail-send-it)
+
+    ;; this for GNUS
+    (setq message-send-mail-function 'smtpmail-send-it)
+
+    ;; Other smtp variables
+    (setq smtpmail-default-smtp-server "localhost")
+    (setq smtp-server "localhost")
+    (setq smtp-local-domain "rudra.copyninja.info")
+    (setq smtpmail-debug-info t)
+  #+END_SRC
 * Windows OS configurations
   #+BEGIN_SRC emacs-lisp
     (defun set-plink-path()
