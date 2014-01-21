@@ -54,7 +54,8 @@
 	 geiser
 	 ac-geiser
 	 clojure-mode
-	 nrepl)))
+	 nrepl
+	 powerline)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
