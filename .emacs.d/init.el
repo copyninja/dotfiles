@@ -55,7 +55,10 @@
 	 ac-geiser
 	 clojure-mode
 	 nrepl
-	 powerline)))
+	 powerline
+	 rw-hunspell
+	 rw-ispell
+	 rw-language-and-country-codes)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
