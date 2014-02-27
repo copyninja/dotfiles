@@ -278,17 +278,6 @@
     (setq font-lock-maximum-decoration t)
     (global-font-lock-mode t)
 
-    ;; Go mode flycheck
-    (eval-after-load "go-mode"
-      '(progn
-         (flycheck-declare-checker go-fmt
-           "A Go syntax and style checker using the gofmt utility."
-           :command '("gofmt" source-inplace)
-           :error-patterns '(("^\\(?1:.*\\):\\(?2:[0-9]+\\):\\(?3:[0-9]+\\): \\(?4:.*\\)$" error))
-           :modes 'go-mode)
-         (add-to-list 'flycheck-checkers 'go-gofmt)))
-    (add-hook 'go-mode-hook 'flycheck-mode)
-
     ;; Use hy from virtualenv
     (setq hy-mode-inferior-lisp-command
           "/home/vasudev/.virtualenvs/hy3env/bin/hy --spy")
