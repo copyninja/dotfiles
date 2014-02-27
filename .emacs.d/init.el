@@ -58,7 +58,8 @@
 	 powerline
 	 rw-hunspell
 	 rw-ispell
-	 rw-language-and-country-codes)))
+	 rw-language-and-country-codes
+	 scss-mode)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
