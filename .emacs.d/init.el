@@ -59,7 +59,9 @@
 	 rw-hunspell
 	 rw-ispell
 	 rw-language-and-country-codes
-	 scss-mode)))
+	 scss-mode
+	 haskell-mode
+	 ghc)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
