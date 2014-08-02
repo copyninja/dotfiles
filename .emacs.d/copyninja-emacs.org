@@ -286,6 +286,17 @@
     (setq inferior-lisp-program "sbcl")
     (require 'slime)
     (slime-setup)
+
+    ;; Haskell mode setup
+    (require 'haskell-mode)
+    (eval-after-load "haskell-mode"
+      '(progn
+         (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+         (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
+         (add-hook 'haskell-mode-hook 'turn-on-eldoc-mode)
+         (define-key haskell-mode-map (kbd "C-,") 'haskell-move-nested-left)
+         (define-key haskell-mode-map (kbd "C-.") 'haskell-move-nested-right)))
+
   #+END_SRC
 * UI and Text editing related customizations
   #+BEGIN_SRC emacs-lisp
