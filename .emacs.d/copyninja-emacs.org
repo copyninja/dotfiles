@@ -272,7 +272,7 @@
     (ac-config-default)
 
     ;; Enable coloring paranthesis pair
-    (global-rainbow-delimiters-mode)
+    (rainbow-delimiters-mode)
 
     ;; fontlock and decoration
     (setq font-lock-maximum-decoration t)
