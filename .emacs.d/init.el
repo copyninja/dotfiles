@@ -30,7 +30,7 @@
          inkpot-theme
          zenburn-theme
          zen-and-art-theme
-	 ample-zen
+	 ample-theme
 	 monokai-theme
          popup
          php-mode
