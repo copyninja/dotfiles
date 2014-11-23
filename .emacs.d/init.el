@@ -64,7 +64,10 @@
 	 scss-mode
 	 haskell-mode
 	 ghc
-	 w3m)))
+	 w3m
+	 debian-changelog-mode
+	 debpaste)
+       ))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
