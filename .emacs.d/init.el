@@ -30,6 +30,8 @@
          inkpot-theme
          zenburn-theme
          zen-and-art-theme
+	 ample-zen
+	 monokai-theme
          popup
          php-mode
          highlight-80+
