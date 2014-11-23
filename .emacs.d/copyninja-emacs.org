@@ -531,6 +531,9 @@
              "* %?\nEntered on %U\n  %i\n  %a")))
     (define-key global-map "\C-cx"
       (lambda () (interactive) (org-capture nil "x")))
+
+    (setq org-reveal-root
+          "file:///home/vasudev/Documents/javascripts/upstream/reveal.js")
   #+END_SRC
 * Windows OS configurations
   #+BEGIN_SRC emacs-lisp
