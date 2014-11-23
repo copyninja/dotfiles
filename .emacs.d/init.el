@@ -61,7 +61,8 @@
 	 rw-language-and-country-codes
 	 scss-mode
 	 haskell-mode
-	 ghc)))
+	 ghc
+	 w3m)))
 
 ;; Install each package from ELPA/MELPA/Tromey etc.
 (dolist (package packages-list)
