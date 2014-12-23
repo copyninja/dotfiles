@@ -503,19 +503,29 @@
   #+END_SRC
 * SMTP Configuration
   #+BEGIN_SRC emacs-lisp
-    (require 'smtpmail)
+    (require 'smtpmail-multi)
+
+    (setq smtpmail-multi-accounts
+          '((copyninja-mail "vasudev" "smtp.copyninja.info" 25
+             header nil nil nil "rudra.copyninja.info")
+            (copyninja-mail "vasudev-debian" "smtp.copyninja.info" 25
+             header nil nil nil "rudra.copyninja.info")
+            (kamathvasudev-gmail nil "localhost" 25 header nil nil nil
+                                 "rudra.copyninja.info")))
+    (setq smtpmail-multi-associations
+          '((("From" . "kamathvasudev@gmail.com")
+             gmail-primary)
+            (("From" . "vasudev@copyninja.info")
+             copyninja-mail))) 
 
     ;; Send the entire buffer using mail
-    (setq send-mail-function 'smtpmail-send-it)
+    (setq send-mail-function 'smtpmail-multi-send-it)
 
     ;; this for GNUS
-    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq message-send-mail-function 'smtpmail-multi-send-it)
 
-    ;; Other smtp variables
-    (setq smtpmail-default-smtp-server "localhost")
-    (setq smtp-server "localhost")
-    (setq smtp-local-domain "rudra.copyninja.info")
-    (setq smtpmail-debug-info t)
+    ;; mail credentials
+    (setq smtpmail-auth-credentials "~/.authinfo.gpg")
   #+END_SRC
 * Org customization
   #+BEGIN_SRC emacs-lisp
