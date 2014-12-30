@@ -34,7 +34,7 @@
      '(debian-bug-download-directory "~/.emacs.d/debbugs/")
      '(debian-bug-helper-program (quote reporbug))
      '(user-full-name "Vasudev Kamath")
-     '(user-mail-address "kamathvasudev@gmail.com")
+     '(user-mail-address "vasudev@copyninja.info")
      '(custom-safe-themes t)
      )
 
