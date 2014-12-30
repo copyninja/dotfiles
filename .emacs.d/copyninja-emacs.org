@@ -313,7 +313,7 @@
     ;; --------------------------------------------------
 
     ;; Load a theme
-    (load-theme 'zenburn)
+    (load-theme 'ample-zen)
 
     ;; Display time and date
     (display-time)
