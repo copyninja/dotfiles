@@ -521,7 +521,7 @@
           '((("From" . "kamathvasudev@gmail.com")
              gmail-primary)
             (("From" . "vasudev@copyninja.info")
-             copyninja-mail))) 
+             copyninja-mail)))
 
     ;; Send the entire buffer using mail
     (setq send-mail-function 'smtpmail-multi-send-it)
