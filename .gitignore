@@ -12,3 +12,13 @@ copyninja-emacs.el
 /.emacs.d/emms/cache
 /.emacs.d/places
 /.emacs.d/emms/history
+/.emacs.d/customfunc.el
+/.emacs.d/emms.el
+/.emacs.d/eshell.el
+/.emacs.d/eshell/
+/.emacs.d/kbdshrtcut.el
+/.emacs.d/orgcust.el
+/.emacs.d/programming.el
+/.emacs.d/smtpconf.el
+/.emacs.d/ui.el
+/.emacs.d/windows.el
