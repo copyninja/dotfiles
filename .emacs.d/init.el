@@ -50,7 +50,8 @@
 				   go-mode rust-mode haskell-mode ghc debian-changelog-mode
 				   debpaste rw-hunspell rw-ispell rw-language-and-country-codes w3m
 				   flycheck smartparens debbugs ox-reveal dropdown-list slime
-				   smtpmail-multi emms yasnippet))
+				   smtpmail-multi emms yasnippet
+				   virtualenv virtualenvwrapper))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
