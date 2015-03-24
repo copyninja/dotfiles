@@ -4,7 +4,9 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
+import Data.Monoid
 
+myManageHooks :: Query(Data.Monoid.Endo WindowSet)
 myManageHooks = composeAll
                 [ className =? "URxvt" --> doShift "1:term"
                 , className =? "Iceweasel" --> doShift "2:browse"
