@@ -3,7 +3,10 @@
 (setq gnus-select-method '(nnimap "copyninja"
 				  (nnimap-address "localhost")
 				  (nnimap-stream network)
-				  (nnimap-inbox '("INBOX"))
+				  (nnimap-authenticator login)
+				  (nnimap-inbox '("Gmail/INBOX"
+						  "vasudev-copyninja.info/INBOX"
+						  "vasudev-debian/INBOX"))
 				  (nnimap-server-port 143)
 				  (nnir-search-engine imap)
 				  (nnimap-authinfo-file
@@ -19,6 +22,9 @@
 (setq gnus-use-adoptive-scoring t)
 (setq gnus-save-score t)
 (add-hook 'mail-citation-hook 'sc-cite-original)
+
+;; Don't clutter my home folder
+(setq gnus-dribble-directory "~/.gnus.d/")
 
 ;; BBDB Address List
 (when (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
@@ -48,4 +54,11 @@
 ;; Render html mail using w3m
 (setq mm-text-html-render 'w3m)
 
+;; Mail encryption/decryption/signing options
+(setq mm-verify-option known)
+(setq mm-decrypt-option always)
+(setq mm-sign-option guided)
+(setq mm-encrypt-option guided)
+
 (setq gnus-use-correct-string-widths nil)
+(gnus-byte-compile)
