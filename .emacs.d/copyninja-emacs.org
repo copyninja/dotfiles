@@ -196,7 +196,7 @@
     ;; --------------------------------------------------
     (require 'yasnippet)
     (yas-global-mode 1)
-    (yas--initialize)
+    (yas-initialize)
     (yas-minor-mode 1)
 
     ;;Enable yas dropdown
