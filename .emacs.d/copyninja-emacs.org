@@ -476,6 +476,48 @@
     (setq org-reveal-root
           "file:///home/vasudev/Documents/javascripts/upstream/reveal.js")
   #+END_SRC
+* GNUS configuration
+  :PROPERTIES:
+  :tangle: gnus-conf.el
+  :END:
+  #+BEGIN_SRC emacs-lisp
+    (setq bbdb-file "~/.emacs.d/bbdb.db")
+    (require 'bbdb)
+    ;; initialization
+    (bbdb-initialize 'gnus 'message)
+
+    ;; size of the bbdb popup
+    (setq bbdb-pop-up-window-size 10)
+
+    ;; What do we do when invoking bbdb interactively
+    (setq bbdb-mua-update-interactive-p '(query . create))
+
+    ;; Make sure we look at every address in a message and not only the
+    ;; first one
+    (setq bbdb-message-all-addresses t)
+
+    ;; This is probably not needed after bbdb-initialize
+    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
+    ;; Automatically launch gnus
+    (setq bbdb/mail-auto-create-p t)
+    (setq bbdb/news-auto-create-p t)
+
+    ;; message-mode address auto-completion
+    (add-hook 'message-mode-hook
+              '(lambda ()
+                 (flyspell-mode t)
+                 (local-set-key "<TAB>" 'bbdb-complete-name)))
+
+    ;; use ; on a message to invoke bbdb interactively
+    (add-hook
+     'gnus-summary-mode-hook
+     (lambda ()
+       (define-key gnus-summary-mode-map (kbd ";") 'bbdb-mua-edit-field)
+       ))
+
+
+  #+END_SRC
 * Windows OS configurations
   :PROPERTIES:
   :tangle: windows.el
