@@ -45,7 +45,7 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq package-list '(auto-complete magit rainbow-mode rainbow-delimiters elpy
+(setq package-list '(auto-complete magit rainbow-delimiters elpy
 				   monokai-theme ample-theme zenburn-theme popup
 				   go-mode rust-mode haskell-mode ghc debian-changelog-mode
 				   debpaste rw-hunspell rw-ispell rw-language-and-country-codes w3m
