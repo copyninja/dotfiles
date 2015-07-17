@@ -22,3 +22,5 @@ copyninja-emacs.el
 /.emacs.d/smtpconf.el
 /.emacs.d/ui.el
 /.emacs.d/windows.el
+/.emacs.d/gnus-conf.el
+/.emacs.d/network-security.data
