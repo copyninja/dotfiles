@@ -1,0 +1,49 @@
+# Remove bindings which might conflict with emacs
+bind CM-equal unmap
+bind CM-f unmap
+bind CMS-equal unmap
+bind CM-1 unmap
+bind CM-2 unmap
+bind CM-3 unmap
+bind MS-1 unmap
+bind MS-2 unmap
+bind MS-3 unmap
+bind M-l unmap
+bind M-r unmap
+bind C-Left unmap
+bind C-Right unmap
+
+#binding
+bind 4-q restart
+bind 4-p exec
+bind 4-equal vmaximize
+bind 4S-equal hmaximize
+bind 4-1 grouponly1
+bind 4-2 grouponly2
+bind 4-3 grouponly3
+bind 4-4 grouponly4
+bind 4-5 grouponly5
+bind 4-6 grouponly6
+bind 4-7 grouponly7
+bind 4-8 grouponly8
+bind 4-9 grouponly9
+bind 4S-1 movetogroup1
+bind 4S-2 movetogroup2
+bind 4S-3 movetogroup3
+bind 4S-4 movetogroup4
+bind 4S-5 movetogroup5
+bind 4S-6 movetogroup6
+bind 4S-7 movetogroup7
+bind 4S-8 movetogroup8
+bind 4S-9 movetogroup9
+
+# customize font
+fontname "Fantasque Sans Mono:pixelsize=14:medium"
+
+# Turn on sticky-group mode
+sticky yes
+
+# autogroup
+autogroup 2 "Iceweasel"
+autogroup 4 "emacs, urxvt"
+autogroup 3 "quasselclient"
