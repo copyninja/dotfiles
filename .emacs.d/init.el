@@ -70,7 +70,7 @@
  '(custom-safe-themes t))
 
 ;; Load theme
-(load-theme 'monokai)
+(load-theme 'zenburn)
 
 ;; load up Org-mode and Org-babel
 (require 'org-install)
@@ -91,4 +91,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "FantasqueSans" :foundry "unknown" :slant normal :weight medium :height 113 :width normal)))))
+ '(default ((t (:family "Fantasque Sans Mono" :foundry "unknown" :slant italic :height 120 :width normal :weight normal)))))
