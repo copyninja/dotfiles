@@ -21,7 +21,7 @@
 (setq gnus-use-cache t)
 (setq gnus-use-adoptive-scoring t)
 (setq gnus-save-score t)
-(add-hook 'mail-citation-hook 'sc-cite-original)
+;; (add-hook 'mail-citation-hook 'sc-cite-original)
 
 ;; Don't clutter my home folder
 (setq gnus-dribble-directory "~/.gnus.d/")
