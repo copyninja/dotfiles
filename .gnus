@@ -55,10 +55,9 @@
 (setq mm-text-html-render 'w3m)
 
 ;; Mail encryption/decryption/signing options
-(setq mm-verify-option known)
-(setq mm-decrypt-option always)
-(setq mm-sign-option guided)
-(setq mm-encrypt-option guided)
+(setq mm-verify-option 'known)
+(setq mm-decrypt-option 'always)
+(setq mm-sign-option 'guided)
+(setq mm-encrypt-option 'guided)
 
 (setq gnus-use-correct-string-widths nil)
-(gnus-byte-compile)
