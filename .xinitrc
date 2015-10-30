@@ -14,7 +14,7 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
        --expand true --width 10 --transparent true --tint 0x191970 --height 15 &
 
 # Run gpg-agent required by alot
-eval $(gpg-agent --daemon --pinentry-program /usr/bin/pinentry-qt4 \
+eval $(gpg-agent --daemon --pinentry-program /usr/bin/pinentry \
 	  --enable-ssh-support)
 
 #feh --bg-scale ~/Pictures/2013/07/07/IMG_20130707_141208.jpg
