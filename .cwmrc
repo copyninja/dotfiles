@@ -9,7 +9,7 @@ bind MS-1 unmap
 bind MS-2 unmap
 bind MS-3 unmap
 bind M-l unmap
-bind M-r unmap
+bind M-r unmap1
 bind C-Left unmap
 bind C-Right unmap
 
@@ -38,12 +38,14 @@ bind 4S-8 movetogroup8
 bind 4S-9 movetogroup9
 
 # customize font
-fontname "Fantasque Sans Mono:pixelsize=14:medium"
+fontname "Fantasque Sans Mono:pixelsize=16:medium"
 
 # Turn on sticky-group mode
-sticky yes
+#sticky yes
 
-# autogroup
-autogroup 2 "Iceweasel"
-autogroup 4 "emacs, urxvt"
-autogroup 3 "quasselclient"
+# autogroup windows
+autogroup 4 "emacs,Emacs"
+autogroup 4 "urxvt,URxvt"
+autogroup 2 "Navigator,Iceweasel"
+autogroup 6 "Kodi,Kodi"
+autogroup 5 "evince,Evince"
