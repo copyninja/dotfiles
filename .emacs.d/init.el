@@ -51,7 +51,7 @@
 				   debpaste rw-hunspell rw-ispell rw-language-and-country-codes w3m
 				   flycheck smartparens debbugs ox-reveal dropdown-list slime
 				   smtpmail-multi emms yasnippet
-				   virtualenv virtualenvwrapper))
+				   virtualenv virtualenvwrapper rainbow-mode))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
