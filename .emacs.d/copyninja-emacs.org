@@ -301,7 +301,10 @@
     (global-set-key [remap scroll-down-command]
                     'golden-ratio-scroll-screen-down)
     (global-set-key [remap scroll-up-command]
-                    'golden-ratio-scroll-screen-up) 
+                    'golden-ratio-scroll-screen-up)
+
+    ;; Enable fancy-narrow-mode by default
+    (fancy-narrow-mode t)
 
     ;; Set the fonts
     (custom-set-faces
