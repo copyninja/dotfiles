@@ -52,23 +52,14 @@
 				   flycheck smartparens debbugs ox-reveal dropdown-list slime
 				   smtpmail-multi emms yasnippet
 				   virtualenv virtualenvwrapper
-				   rainbow-mode restclient golden-ratio-scroll-screen))
+				   rainbow-mode restclient
+				   golden-ratio-scroll-screen
+				   centered-window-mode fancy-narrow writeroom-mode))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(debian-bug-from-address "Vasudev Kamath <kamathvasudev@gmail.com>")
- '(debian-bug-download-directory "~/.emacs.d/debbugs/")
- '(debian-bug-helper-program (quote reporbug))
- '(user-full-name "Vasudev Kamath")
- '(user-mail-address "vasudev@copyninja.info")
- '(custom-safe-themes t))
 
 ;; Load theme
 (load-theme 'zenburn)
