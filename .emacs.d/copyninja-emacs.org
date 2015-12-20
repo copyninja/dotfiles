@@ -277,11 +277,6 @@
     ;; Break line on 80 chars python
     (add-hook 'python-mode '(lambda () (setq current-fill-column 80)))
 
-    ;;--------------------------------------------
-    ;; Some prettiness in prog langs & modelines
-    ;; (copied from theanalyst)
-    ;;--------------------------------------------
-
     ;; dictionary configuration
     (setq ispell-program-name "hunspell")
     (require 'rw-language-and-country-codes)
