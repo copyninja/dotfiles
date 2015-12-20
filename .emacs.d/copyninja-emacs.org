@@ -301,6 +301,13 @@
     (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
       (add-hook hook (lambda() (flyspell-mode t))))
 
+    ;; Golden ration scrolling
+    (require 'golden-ratio-scroll-screen)
+    (global-set-key [remap scroll-down-command]
+                    'golden-ratio-scroll-screen-down)
+    (global-set-key [remap scroll-up-command]
+                    'golden-ratio-scroll-screen-up) 
+
     ;; Set the fonts
     (custom-set-faces
      ;; custom-set-faces was added by Custom.

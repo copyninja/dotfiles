@@ -52,7 +52,7 @@
 				   flycheck smartparens debbugs ox-reveal dropdown-list slime
 				   smtpmail-multi emms yasnippet
 				   virtualenv virtualenvwrapper
-				   rainbow-mode restclient))
+				   rainbow-mode restclient golden-ratio-scroll-screen))
 ;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
