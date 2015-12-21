@@ -62,7 +62,7 @@
 
 
 ;; Load theme
-(load-theme 'zenburn)
+(load-theme 'zenburn t)
 
 ;; load up Org-mode and Org-babel
 (require 'org-install)
