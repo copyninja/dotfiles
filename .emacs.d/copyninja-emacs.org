@@ -101,6 +101,12 @@
             (while (re-search-forward "Architecture: \\(.+\\)" nil t)
               (insert (format "\nMulti-Arch: %s" value))))
         (message "Sorry this function works only in debian control file")))
+
+    ;; Pelican function to instert time stamp
+    (defun insert-timestamp ()
+      "Function to insert time stamp in pelican posts"
+      (interactive)
+      (insert (format-time-string "%Y-%m-%d %R %z")))
   #+END_SRC
 * Keyboard Shortcuts
   :PROPERTIES:
