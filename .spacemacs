@@ -50,6 +50,9 @@
      notmuch
      cscope
      )
+   dotspacemacs-additional-packages '(
+                                      dumb-jump-mode
+                                      )
    dotspacemacs-excluded-packages '()))
 
 (defun dotspacemacs/init ()
