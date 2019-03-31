@@ -1,0 +1,69 @@
+IMAPAccount	copyninja
+Host imap.copyninja.info
+User vasudev
+PassCmd	"gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ~/.secrets/.passphrase_file.txt -d ~/.secrets/.mailpass_copyninja.gpg"
+SSLType IMAPS
+SSLVersion TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPAccount copyninja-debian
+Host imap.copyninja.info
+User vasudev-debian
+PassCmd "gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ~/.secrets/.passphrase_file.txt -d ~/.secrets/.mailpass_copyninja.gpg"
+SSLType IMAPS
+SSLVersion TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPAccount gmail-kamathvasudev
+Host imap.gmail.com
+User kamathvasudev@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty --exit-on-status-write-error --batch --passphrase-file ~/.secrets/.passphrase_file.txt -d ~/.secrets/.gmail_pass_kamathvasudev.gpg"
+SSLType IMAPS
+SSLVersion TLSv1.2
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore copyninja-remote
+Account copyninja
+
+IMAPStore copyninja-debian-remote
+Account copyninja-debian
+
+IMAPStore gmail-kamathvasudev-remote
+Account gmail-kamathvasudev
+
+MaildirStore copyninja-local
+Path ~/Mail/vasudev/
+Inbox ~/Mail/vasudev/INBOX
+
+MaildirStore copyninja-debian-local
+Path ~/Mail/vasudev-debian/
+Inbox ~/Mail/vasudev-debian/INBOX
+
+MaildirStore gmail-kamathvasudev-local
+Path ~/Gmail-1/
+Inbox ~/Gmail-1/INBOX
+
+Channel copyninja
+Master :copyninja-remote:
+Slave :copyninja-local:
+Patterns *
+Create Both
+SyncState *
+Sync All
+
+Channel copyninja-debian
+Master :copyninja-debian-remote:
+Slave :copyninja-debian-local:
+Patterns *
+Create Both
+SyncState *
+Sync All
+
+Channel gmail-kamathvasudev
+Master :gmail-kamathvasudev-remote:
+Slave :gmail-kamathvasudev-local:
+# Exclude everything under the internal [Gmail] folder, except the interesting folders
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Create Both
+SyncState *
+Sync All
