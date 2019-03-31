@@ -1,0 +1,52 @@
+# This is the default filter chain
+[SpamFilter]
+#[ClassifyingFilter]
+[KillThreadsFilter]
+# [ListMailsFilter]
+[FolderNameFilter]
+[ArchiveSentMailsFilter]
+[InboxFilter]
+
+[HeaderMatchingFilter.1]
+header = X-Distro-Tracker-Team
+pattern = debian-fonts
+tags = +debian-fonts;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.2]
+header = List-Id
+pattern = pkg-rust-maintainers@alioth-lists.debian.net
+tags = +pkg-rust;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.3]
+header = X-BeenThere
+pattern = pkg-rust-maintainers@alioth-lists.debian.net
+tags = +pkg-rust;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.4]
+header = X-BeenThere
+pattern = pkg-voip-maintainers@alioth-lists.debian.net
+tags = +pkg-voip;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.5]
+header = X-BeenThere
+pattern = pkg-multimedia-maintainers@alioth-lists.debian.net
+tags = +pkg-multimedia;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.6]
+header = X-BeenThere
+pattern = pkg-fonts-devel@alioth-lists.debian.net
+tags = +debian-fonts;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.7]
+header = From
+pattern = noreply@release.debian.org
+tags = +debian-testing-watch
+
+[MailMover]
+folders = vasudev-debian/INBOX vasudev/INBOX
+rename = False
+max_age = 10
+
+# rules
+vasudev-debian/INBOX = 'tag:pkg-rust':vasudev-debian/pkg-rust 'tag:debian-fonts':vasudev-debian/debian-fonts 'tag:pkg-multimedia':vasudev-debian/pkg-multimedia 'tag:vasudev-debian/pkg-voip':vasudev-debian/pkg-voip 'tag:vasudev-debian/debian-gitlab':vasudev-debian/debian-gitlab 'tag:debian-testing-watch':vasudev-debian/testing-watch
+vasudev/INBOX = 'tag:Spam':vasudev-copyninja.info/Spam
