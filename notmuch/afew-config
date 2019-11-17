@@ -1,0 +1,95 @@
+# This is the default filter chain
+[Filter.1]
+message = "Filtering FTP master accepted messages"
+query = 'subject:.*\.changes ACCEPTED into .*'
+tags = +package-accepted;-new
+
+[Filter.2]
+message = "Filtering package in new messages"
+query = 'subject:.*\.changes is NEW'
+tags = +package-accepted;-new
+
+[Filter.3]
+message = "Filtering upload process messages"
+query = 'subject:Processing of .*changes'
+tags = +package-accepted;-new
+
+[Filter.4]
+message = "buildd failure message"
+query = 'subject:failed .* build of .*'
+tags = +package-accepted;-new
+
+[Filter.5]
+message = "Filter migration to testing messages"
+query = 'subject:*MIGRATED to testing'
+tags = +package-accepted;-new
+
+[Filter.6]
+query = 'tag:package-accepted and tag:pkg-rust'
+tags = -pkg-rust;-vasudev-debian/debian-rust
+
+[Filter.7]
+query = 'tag:package-accepted and tag:debian-fonts'
+tags = -debian-fonts;-vasudev-debian/debian-fonts
+
+
+[SpamFilter]
+#[ClassifyingFilter]
+[KillThreadsFilter]
+# [ListMailsFilter]
+[FolderNameFilter]
+[ArchiveSentMailsFilter]
+[InboxFilter]
+
+[HeaderMatchingFilter.1]
+header = X-Distro-Tracker-Team
+pattern = debian-fonts
+tags = +debian-fonts;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.2]
+header = List-Id
+pattern = pkg-rust-maintainers.alioth-lists.debian.net
+tags = +pkg-rust;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.3]
+header = X-BeenThere
+pattern = pkg-rust-maintainers@alioth-lists.debian.net
+tags = +pkg-rust;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.4]
+header = X-BeenThere
+pattern = pkg-voip-maintainers@alioth-lists.debian.net
+tags = +pkg-voip;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.5]
+header = X-BeenThere
+pattern = pkg-multimedia-maintainers@alioth-lists.debian.net
+tags = +pkg-multimedia;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.6]
+header = X-BeenThere
+pattern = pkg-fonts-devel@alioth-lists.debian.net
+tags = +debian-fonts;-vasudev-debian/INBOX
+
+[HeaderMatchingFilter.7]
+header = From
+pattern = noreply@release.debian.org
+tags = +debian-testing-watch
+
+[HeaderMatchingFilter.8]
+header = X-BeenThere
+pattern = pkg-nvidia-devel@alioth-lists.debian.net
+tags = +pkg-nvidia-devel;-vasudev-debian/INBOX
+
+
+[MailMover]
+folders = vasudev-debian/INBOX vasudev/INBOX vasudev-debian/pkg-rust vasudev-debian/debian-fonts vasudev-debian/debian-india
+rename = False
+max_age = 10
+
+# rules
+vasudev-debian/INBOX = 'tag:pkg-rust':vasudev-debian/pkg-rust 'tag:debian-fonts':vasudev-debian/debian-fonts 'tag:pkg-multimedia':vasudev-debian/pkg-multimedia 'tag:vasudev-debian/pkg-voip':vasudev-debian/pkg-voip 'tag:vasudev-debian/debian-gitlab':vasudev-debian/debian-gitlab 'tag:debian-testing-watch':vasudev-debian/testing-watch 'tag:pkg-nvidia-devel':vasudev-debian/pkg-nvidia-devel
+vasudev/INBOX = 'tag:Spam':vasudev/Spam
+vasudev-debian/pkg-rust = 'tag:package-accepted':vasudev-debian/Accepted
+vasudev-debian/debian-fonts = 'tag:package-accepted':vasudev-debian/Accepted
+vasudev-debian/debian-india = 'tag:package-accepted':vasudev-debian/Accepted
