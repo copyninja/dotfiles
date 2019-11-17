@@ -13,6 +13,9 @@
                                       smtp-mail-multi)
    dotspacemacs-configuration-layers
    '(
+     ruby
+     csv
+     ansible
      haskell
      graphviz
      javascript
