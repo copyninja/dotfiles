@@ -44,7 +44,8 @@
      (c-c++ :variables
             c-c++-enable-clang-support t)
      cscope
-     go
+     (go :variables go-use-gometalinter t
+         :variables gofmt-command "goimports")
      ;; gnus
      python
      themes-megapack
@@ -55,6 +56,7 @@
      )
    dotspacemacs-additional-packages '(
                                       dumb-jump-mode
+                                      ox-reveal
                                       )
    dotspacemacs-excluded-packages '()))
 
@@ -146,6 +148,13 @@
     (define-key rst-mode-map (kbd "<f1>") 'insert-pelican-date))
   )
 
+(defun ox-reveal-config()
+  (require 'ox-reveal)
+  (setq org-reveal-root "file:///home/vasudeva.sk/Documents/talks/reveal.js/")
+  )
+
 (defun dotspacemacs/user-config ()
   (copyninja/display-config)
-  (pelican-config))
+  (pelican-config)
+  (ox-reveal-config)
+  )
