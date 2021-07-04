@@ -12,7 +12,8 @@
                                       bbdb
                                       smtp-mail-multi)
    dotspacemacs-configuration-layers
-   '(
+   '(systemd
+     sml
      ruby
      csv
      ansible
@@ -22,17 +23,23 @@
      html
      php
      lua
+     lsp
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     (ranger :variables
+             ranger-show-preview t)
      auto-completion
      better-defaults
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-enable-github-support t
+          org-enable-reveal-js-support t
+          org-enable-org-journal-support t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -47,23 +54,22 @@
      (go :variables go-use-gometalinter t
          :variables gofmt-command "goimports")
      ;; gnus
-     python
+     (python :variables python-backend 'lsp
+             :variables python-formatter 'black)
      themes-megapack
      yaml
      rust
      notmuch
      cscope
+     (treemacs :variables treemacs-use-scope-type 'Perspectives
+               :variables treemacs-use-follow-mode 'tag)
      )
-   dotspacemacs-additional-packages '(
-                                      dumb-jump-mode
-                                      ox-reveal
-                                      )
    dotspacemacs-excluded-packages '()))
 
 (defun dotspacemacs/init ()
   (setq-default
    dotspacemacs-elpa-https t
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 30
    dotspacemacs-check-for-update t
    dotspacemacs-editing-style 'emacs
    dotspacemacs-verbose-loading nil
@@ -156,5 +162,6 @@
 (defun dotspacemacs/user-config ()
   (copyninja/display-config)
   (pelican-config)
-  (ox-reveal-config)
+  (setq ansible-vault-password-file "~/.secrets/.fip_token.txt")
+ ;; (ox-reveal-config)
   )
