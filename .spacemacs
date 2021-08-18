@@ -71,8 +71,8 @@
    dotspacemacs-editing-style 'emacs
    dotspacemacs-verbose-loading nil
    dotspacemacs-startup-banner nil
-   dotspacemacs-startup-lists '(recents projects)
-   dotspacemacs-startup-recent-list-size 5
+   dotspacemacs-startup-lists '((recents . 5)
+			 	(projects . 7))
    dotspacemacs-scratch-mode 'text-mode
    dotspacemacs-themes '(material-light
                          solarized-light
