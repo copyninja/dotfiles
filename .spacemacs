@@ -10,18 +10,15 @@
                                       notmuch
                                       notmuch-labeler
                                       bbdb
-                                      smtp-mail-multi)
+                                      smtpmail-multi)
    dotspacemacs-configuration-layers
    '(systemd
      sml
      ruby
      csv
      ansible
-     haskell
      graphviz
-     javascript
      html
-     php
      lua
      lsp
      ;; ----------------------------------------------------------------
