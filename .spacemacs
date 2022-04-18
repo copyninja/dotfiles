@@ -12,7 +12,9 @@
                                       bbdb
                                       smtpmail-multi)
    dotspacemacs-configuration-layers
-   '(systemd
+   '(php
+     javascript
+     systemd
      sml
      ruby
      csv
@@ -51,7 +53,7 @@
      (go :variables go-use-gometalinter t
          :variables gofmt-command "goimports")
      ;; gnus
-     (python :variables python-backend 'lsp
+     (python :variables python-backend 'lsp python-lsp-server 'pyright
              :variables python-formatter 'black)
      themes-megapack
      yaml
