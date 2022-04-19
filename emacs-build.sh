@@ -22,6 +22,8 @@ local_lpath=${local_lpath}:/usr/share/emacs/site-lisp
 
 # For supporting wayland
 BUILD_OPTIONS="--with-pgtk --without-xaw3d --enable-locallisppath=${local_lpath} --with-mailutils --with-libsystemd"
+BUILD_OPTIONS="${BUILD_OPTIONS} --with-native-compilation"
+
 
 ./configure $BUILD_OPTIONS
 make -j$(nproc)
