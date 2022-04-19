@@ -24,6 +24,18 @@ local_lpath=${local_lpath}:/usr/share/emacs/site-lisp
 BUILD_OPTIONS="--with-pgtk --without-xaw3d --enable-locallisppath=${local_lpath} --with-mailutils --with-libsystemd"
 BUILD_OPTIONS="${BUILD_OPTIONS} --with-native-compilation"
 
+if [ "$CLANG" == "yes" ]; then
+    export CC="/usr/bin/clang"
+    export CXX="/usr/bin/clang++"
+    export CPP="/usr/bin/clang -E"
+    export LD="/usr/bin/lld"
+    export AR="/usr/bin/llvm-ar"
+    export AS="/usr/bin/llvm-as"
+    export CCFLAGS="-fuse-ld=lld"
+    export CXXFLAGS="-fuse-ld=lld"
+
+    BUILD_OPTIONS="${BUILD_OPTIONS} --enable-autodepend"
+fi
 
 ./configure $BUILD_OPTIONS
 make -j$(nproc)
