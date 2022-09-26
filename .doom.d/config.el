@@ -6,8 +6,9 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Vasudeva Kamath"
+      user-mail-address "vasudev@debian.org")
+
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -33,6 +34,10 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
+
+;; Change localleader keys
+;; (setq doom-leader-key "M-SPC"
+;;       doom-localleader-key "M-SPC m")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -98,7 +103,7 @@
 
   (defun notmuch-mark-all-read()
     "Mark all as read in current search"
-    q  (interactive)
+    (interactive)
     (notmuch-search-tag-all (list "-unread"))
     (notmuch-search-refresh-view))
 
@@ -134,8 +139,8 @@
 
   ;; Functions copied from
   ;; https://notmuchmail.org/pipermail/notmuch/2012/011692.html
-  ;;(require 'bbdb-autoloads)
-  ;;(require 'bbdb)
+  (require 'bbdb-autoloads)
+  (require 'bbdb)
   (defun bbdb/notmuch-snarf-header (header)
     (let ((text (notmuch-show-get-header header)))
       (with-temp-buffer
@@ -152,22 +157,22 @@
 
   ;; color from line according to known / unknown sender
                                         ; code taken from bbdb-gnus.el
-  (defun bbdb/notmuch-known-sender ()
-    (let* ((from (plist-get headers :From))
-           (splits (mail-extract-address-components from))
-           (name (car splits))
-           (net (cadr splits))
-           (record (and splits
-                        (bbdb-search-simple
-                         name
-                         (if (and net bbdb-canonicalize-net-hook)
-                             (bbdb-canonicalize-address net)
-                           net)))))
-      (and record net (member (downcase net) (bbdb-record-net record)))))
+  ;; (defun bbdb/notmuch-known-sender (headers)
+  ;;   (let* ((from (plist-get headers :From))
+  ;;          (splits (mail-extract-address-components from))
+  ;;          (name (car splits))
+  ;;          (net (cadr splits))
+  ;;          (record (and splits
+  ;;                       (bbdb-search-name
+  ;;                        name
+  ;;                        (if (and net bbdb-canonicalize-net-hook)
+  ;;                            (bbdb-canonicalize-address net)
+  ;;                          net)))))
+  ;;     (and record net (member (downcase net) (bbdb-record-net record)))))
 
-  (defun bbdb/check-known-sender ()
-    (interactive)
-    (if (bbdb/notmuch-known-sender) (message "Sender is known") (message "Sender is not known")))
+  ;; (defun bbdb/check-known-sender ()
+  ;;   (interactive)
+  ;;   (if (bbdb/notmuch-known-sender) (message "Sender is known") (message "Sender is not known")))
 
   (defface notmuch-show-known-addr
     '(
@@ -186,26 +191,26 @@
     :group 'notmuch-faces)
 
                                         ; override function from notmuch-show
-  (defun notmuch-show-insert-headerline (headers date tags depth)
-    "Insert a notmuch style headerline based on HEADERS for a
-message at DEPTH in the current thread."
-    (let ((start (point))
-          (face (if (bbdb/notmuch-known-sender) 'notmuch-show-known-addr 'notmuch-show-unknown-addr))
-          (end-from))
-      (insert (notmuch-show-spaces-n (* notmuch-show-indent-messages-width depth))
-              (notmuch-show-clean-address (plist-get headers :From)))
-      (setq end-from (point))
-      (insert
-       " ("
-       date
-       ") ("
-       (propertize (mapconcat 'identity tags " ")
-                   'face 'notmuch-tag-face)
-       ")\n")
-      (overlay-put (make-overlay start (point)) 'face 'notmuch-message-summary-face)
-      (save-excursion
-        (goto-char start)
-        (overlay-put (make-overlay start end-from) 'face face))))
+;;   (defun notmuch-show-insert-headerline (headers date tags depth)
+;;     "Insert a notmuch style headerline based on HEADERS for a
+;; message at DEPTH in the current thread."
+;;     (let ((start (point))
+;;           (face (if (bbdb/notmuch-known-sender headers) 'notmuch-show-known-addr 'notmuch-show-unknown-addr))
+;;           (end-from))
+;;       (insert (notmuch-show-spaces-n (* notmuch-show-indent-messages-width depth))
+;;               (notmuch-show-clean-address (plist-get headers :From)))
+;;       (setq end-from (point))
+;;       (insert
+;;        " ("
+;;        date
+;;        ") ("
+;;        (propertize (mapconcat 'identity tags " ")
+;;                    'face 'notmuch-tag-face)
+;;        ")\n")
+;;       (overlay-put (make-overlay start (point)) 'face 'notmuch-message-summary-face)
+;;       (save-excursion
+;;         (goto-char start)
+;;         (overlay-put (make-overlay start end-from) 'face face))))
 
   ;; Not much related configurations
   (defvar notmuch-hello-refresh-count 0)
@@ -288,4 +293,65 @@ message at DEPTH in the current thread."
       (if (member "deleted" (notmuch-show-get-tags))
           (notmuch-show-tag (list "-deleted"))
         (notmuch-show-tag (list "+deleted")))))
+  )
+
+(after! smtpmail-multi
+  (setq smtpmail-multi-accounts
+        '((copyninja-mail "vasudev" "localhost" 25
+                          header nil nil nil "rudra")
+          (gmail-primary nil "localhost" 25
+                         header nil nil nil "rudra")))
+  (setq smtpmail-multi-assosications
+        '((("From" . "kamathvasudev@gmail.com")
+           gmail-primary)
+          (("From" . "vasudev@copyninja.info")
+           copyninja-mail)
+          (("From" . "vasudev@debian.org")
+           copyninja-mail)))
+
+  ;; Message sending functions
+  (setq send-mail-function 'smtpmail-multi-send-it
+        message-send-mail-function 'smtpmail-multi-send-it
+        smtpmail-auth-credntials "/home/vasudev/.authinfo.gpg")
+  )
+
+(after! gnus
+  (require 'gnus-art)
+  (setq gnus-posting-styles
+        '(((header "to" "kamathvasudev@gmail.com")
+           (address "kamathvasudev@gmail.com"))
+          ((header "to" "vasudev@copyninja.info")
+           (address "vasudev@copyninja.info"))
+          ((header "to" "vasudev-debian@copyninja.info")
+           (address "vasudev@debian.org"))
+          ((header "to" "vasudev@debian.org")
+           (address "vasudev@debian.org"))))
+  )
+
+(after! bbdb
+  (require 'bbdb-autoloads)
+  (require 'bbdb)
+  (bbdb-initialize 'gnus 'mail 'message)
+  (setq bbdb-file "~/.bbdb.db")
+
+  ;; size of bbdb popup
+  (setq bbdb-pop-up-window-size 10)
+
+  ;; What do we do when invoking bbdb interactively
+  (setq bbdb-mua-interactive-action '(query . create))
+
+  ;; Make sure we look at every address in a message and not only the
+  ;; first one
+  (setq bbdb-message-all-addresses t)
+
+  ;; Make sure when signing we use Sender filed to get the key to sign
+  (setq mml-secure-openpgp-sign-with-sender t)
+
+  (setq bbdb/mail-auto-create-p t
+        bbdb/news-auto-create-p t)
+
+  (add-hook 'message-mode-hook
+            '(lambda ()
+               (flyspell-mode t)
+               (local-set-key "<TAB>" 'bbdb-complete-name)))
   )
