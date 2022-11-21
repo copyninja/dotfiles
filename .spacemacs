@@ -10,9 +10,12 @@
                                       notmuch
                                       notmuch-labeler
                                       bbdb
-                                      smtpmail-multi)
+                                      smtpmail-multi
+                                      format-all)
    dotspacemacs-configuration-layers
-   '(php
+   '(perl5
+     react
+     php
      javascript
      systemd
      sml
@@ -48,7 +51,8 @@
      syntax-checking
      version-control
      (c-c++ :variables
-            c-c++-enable-clang-support t)
+            c-c++-enable-clang-support t
+            c-c++-backend 'lsp-clangd)
      cscope
      (go :variables go-use-gometalinter t
          :variables gofmt-command "goimports")
