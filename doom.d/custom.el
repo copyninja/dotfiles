@@ -3,13 +3,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(notmuch-address-command "notmuch-addrlookup")
  '(notmuch-always-prompt-for-sender t)
  '(notmuch-crypto-process-mime t)
  '(notmuch-fcc-dirs
-   '(("vasudev-debian@copyninja.info" . "vasudev-debian/Sent")
+   '(("vasudev-debian@copyninja.in" . "vasudev-debian/Sent")
      ("vasudev@debian.org" . "vasudev-debian/Sent")
-     ("vasudev@copyninja.info" . "vasudev/Sent")
+     ("vasudev@copyninja.in" . "vasudev/Sent")
      ("kamathvasudev@gmail.com" . "Gmail-1/Sent")))
  '(notmuch-hello-tag-list-make-query "tag:unread")
  '(notmuch-message-headers '("Subject" "To" "Cc" "Bcc" "Date" "Reply-To"))
@@ -43,7 +44,7 @@
  '(notmuch-show-all-tags-list t)
  '(notmuch-show-insert-text/plain-hook
    '(notmuch-wash-convert-inline-patch-to-part notmuch-wash-tidy-citations notmuch-wash-elide-blank-lines notmuch-wash-excerpt-citations))
- '(package-selected-packages '(salt-mode systemd notmuch dpkg-dev-el))
+ '(package-selected-packages '(rustic salt-mode systemd notmuch dpkg-dev-el))
  '(safe-local-variable-values '((c-indent-level . 4)))
  '(send-mail-function 'smtpmail-send-it)
  '(smtpmail-smtp-server "localhost")
@@ -53,4 +54,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(ts-fold-replacement-face ((t (:foreground unspecified :box nil :inherit font-lock-comment-face :weight light)))))

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+#MAILSYNC=$(pgrep mail-sync)
+MBSYNC=$(pgrep mbsync)
+NOTMUCH=$(pgrep notmuch)
+
+if [ -n "$MBSYNC" -o -n "$NOTMUCH" ]; then
+	echo "Already running one instance of mail-sync. Exiting..."
+	exit 0
+fi
+
+echo "Deleting messages tagged as *deleted*"
+notmuch search --format=text0 --output=files tag:deleted |xargs -0 --no-run-if-empty rm -v
+notmuch new
+
+notmuch search --format=text0 --output=files folder:vasudev/Trash | xargs -0 --no-run-if-empty rm -v
+notmuch new
+
+notmuch search --format=text0 --output=files folder:vasudev-debian/Trash | xargs -0 --no-run-if-empty rm -v
+notmuch new
+
+echo "Moving spam to Spam folder"
+notmuch search --format=text0 --output=files tag:Spam and folder:/vasudev/ and not folder:/Spam/ | xargs -0 -I {} --no-run-if-empty mv -v {} ~/Mail/vasudev/Spam/cur
+notmuch new
+
+notmuch search --format=text0 --output=files tag:Spam and folder:/vasudev-debian/ and not folder:/Spam/ | xargs -0 -I {} --no-run-if-empty mv -v {} ~/Mail/vasudev-debian/Spam/cur
+notmuch new
+
+notmuch search --format=text0 --output=files tag:package-accepted and not tag:vasudev-debian/Accepted |xargs -0 -I {} --no-run-if-empty mv -v {} ~/Mail/vasudev-debian/Accepted/cur
+notmuch new
+
+
+MDIR="vasudev-copyninja.info vasudev-debian Gmail-1"
+mbsync -Va
+notmuch new
+
+#for mdir in $MDIR; do
+#    echo "Processing $mdir"
+#    for fdir in $(ls -d /home/vasudev/Mail/$mdir/*); do
+#        if [ $(basename $fdir) != "INBOX" ]; then
+#            echo "Tagging for $(basename $fdir)"
+
+#            notmuch tag +$(basename $fdir) -inbox -- folder:$mdir/$(basename $fdir)
+#        fi
+#    done
+#done
