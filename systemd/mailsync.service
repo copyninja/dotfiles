@@ -1,0 +1,8 @@
+[Unit]
+Description=Check Mail
+RefuseManualStart=no
+RefuseManualStop=yes
+
+[Service]
+Type=oneshot
+ExecStart=/home/vasudev/.local/bin/mail-sync
