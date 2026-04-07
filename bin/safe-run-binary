@@ -1,0 +1,94 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+    echo "Usage: safe-run-binary [-b /path]... -- <command> [args...]"
+    echo ""
+    echo "Run a binary in a sandboxed systemd scope."
+    echo ""
+    echo "Options:"
+    echo "  -b /path    Whitelist a path for the sandboxed process to access"
+    echo "  -h, --help  Show this help message"
+    echo ""
+    echo "Everything after -- is executed as the command."
+    echo ""
+    echo "Example:"
+    echo "  safe-run-binary -b /home/\$USER/.npm -b /tmp -- npx @google/gemini-cli:latest"
+    exit 0
+}
+
+# Parse arguments
+bind_paths=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            usage
+            ;;
+        -b)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: -b requires a path argument" >&2
+                exit 1
+            fi
+            bind_paths+=("$2")
+            shift 2
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Error: Unknown option: $1" >&2
+            echo "Use --help for usage information" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Validate command is provided
+if [[ $# -eq 0 ]]; then
+    echo "Error: No command specified" >&2
+    echo "Use --help for usage information" >&2
+    exit 1
+fi
+
+# Build BindPaths string (space-separated identity binds)
+bind_paths_str=""
+for path in "${bind_paths[@]}"; do
+    if [[ -n "$bind_paths_str" ]]; then
+        bind_paths_str="$bind_paths_str $path"
+    else
+        bind_paths_str="$path"
+    fi
+done
+
+# Build InaccessiblePaths - protect sensitive directories
+inaccessible_paths=""
+for dir in "$HOME/.ssh" "$HOME/.gnupg"; do
+    if [[ -e "$dir" ]]; then
+        inaccessible_paths="$inaccessible_paths $dir"
+    fi
+done
+for dir in "$HOME"/*secrets* "$HOME/.aws" "$HOME/.config/gcloud" "$HOME/.kube"; do
+    if [[ -e "$dir" ]]; then
+        inaccessible_paths="$inaccessible_paths $dir"
+    fi
+done
+inaccessible_paths="${inaccessible_paths# }"
+
+exec systemd-run --user --pty \
+    -p ProtectHome=tmpfs \
+    -p "BindPaths=$bind_paths_str" \
+    -p BindReadOnlyPaths="/etc/debian_version /etc/ssl/certs /etc/resolv.conf /etc/nsswitch.conf /etc/hosts" \
+    -p NoNewPrivileges=yes \
+    -p ProtectSystem=strict \
+    -p RestrictRealtime=yes \
+    -p "RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX" \
+    -p ProtectKernelTunables=yes \
+    -p ProtectControlGroups=yes \
+    -p PrivateTmp=yes \
+    -p RestrictNamespaces=yes \
+    -p LockPersonality=yes \
+    -p RestrictSUIDSGID=yes \
+    "$@"
