@@ -124,7 +124,8 @@ if $gui_mode; then
         xdg-dbus-proxy \
             "$DBUS_SESSION_BUS_ADDRESS" \
             "$dbus_socket" \
-            --filter &
+            --filter \
+            --talk=org.freedesktop.portal.* &
         proxy_pid=$!
 
         # Wait for socket to appear
@@ -163,6 +164,15 @@ if $gui_mode; then
             fi
         fi
     done
+
+    # Audio support
+    if [[ -S "$XDG_RUNTIME_DIR/pipewire-0" ]]; then
+        systemd_args+=(-p "BindPaths=$XDG_RUNTIME_DIR/pipewire-0")
+    fi
+    if [[ -d "$XDG_RUNTIME_DIR/pulse" ]]; then
+        systemd_args+=(-p "BindPaths=$XDG_RUNTIME_DIR/pulse")
+        systemd_args+=(-p "Environment=PULSE_RUNTIME_PATH=$XDG_RUNTIME_DIR/pulse")
+    fi
 
     # GUI-specific systemd options
     systemd_args+=(
