@@ -3,23 +3,26 @@
 set -e
 
 usage() {
-    echo "Usage: safe-run-binary [-b /path]... -- <command> [args...]"
+    echo "Usage: safe-run-binary [-b /path]... [-g] -- <command> [args...]"
     echo ""
     echo "Run a binary in a sandboxed systemd scope."
     echo ""
     echo "Options:"
     echo "  -b /path    Whitelist a path for the sandboxed process to access"
+    echo "  -g, --gui   Enable GUI app support (Wayland, D-Bus, GPU, Pipewire)"
     echo "  -h, --help  Show this help message"
     echo ""
     echo "Everything after -- is executed as the command."
     echo ""
-    echo "Example:"
-    echo "  safe-run-binary -b /home/\$USER/.npm -b /tmp -- npx @google/gemini-cli:latest"
+    echo "Examples:"
+    echo "  safe-run-binary -b ~/.npm -b /tmp -- npx @google/gemini-cli:latest"
+    echo "  safe-run-binary -g -b ~/Downloads -- firefox"
     exit 0
 }
 
 # Parse arguments
 bind_paths=()
+gui_mode=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -31,8 +34,14 @@ while [[ $# -gt 0 ]]; do
                 echo "Error: -b requires a path argument" >&2
                 exit 1
             fi
-            bind_paths+=("$2")
+            # Resolve to absolute path
+            resolved=$(realpath -e "$2" 2>/dev/null || realpath -m "$2")
+            bind_paths+=("$resolved")
             shift 2
+            ;;
+        -g|--gui)
+            gui_mode=true
+            shift
             ;;
         --)
             shift
@@ -53,42 +62,154 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
-# Build BindPaths string (space-separated identity binds)
-bind_paths_str=""
-for path in "${bind_paths[@]}"; do
-    if [[ -n "$bind_paths_str" ]]; then
-        bind_paths_str="$bind_paths_str $path"
+# Build read-only paths list (conditional on distro)
+ro_paths="/etc/ssl/certs /etc/resolv.conf /etc/nsswitch.conf /etc/hosts"
+if [[ -f /etc/debian_version ]]; then
+    ro_paths="/etc/debian_version $ro_paths"
+fi
+if [[ -f /etc/os-release ]]; then
+    ro_paths="/etc/os-release $ro_paths"
+fi
+if [[ -d /etc/fonts ]]; then
+    ro_paths="/etc/fonts $ro_paths"
+fi
+
+# Base sandbox settings - NO RestrictNamespaces, will be set in non-gui mode
+systemd_args=(
+    --user
+    --pty
+    -p ProtectHome=tmpfs
+    -p "BindReadOnlyPaths=$ro_paths"
+    -p NoNewPrivileges=yes
+    -p ProtectSystem=strict
+    -p RestrictRealtime=yes
+    -p "RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX"
+    -p ProtectKernelTunables=yes
+    -p ProtectControlGroups=yes
+    -p PrivateTmp=yes
+    -p LockPersonality=yes
+    -p RestrictSUIDSGID=yes
+)
+
+# GUI-specific additions - must add paths BEFORE loop above adds them to systemd_args
+if $gui_mode; then
+    # Validate Wayland display
+    if [[ -z "$WAYLAND_DISPLAY" ]]; then
+        echo "Error: --gui requires WAYLAND_DISPLAY to be set" >&2
+        exit 1
+    fi
+
+    # Validate D-Bus session
+    if [[ -z "$DBUS_SESSION_BUS_ADDRESS" ]]; then
+        echo "Error: --gui requires DBUS_SESSION_BUS_ADDRESS to be set" >&2
+        exit 1
+    fi
+
+    # Create app-specific runtime directory on host for tmpfs sandbox
+    app_runtime_dir="$XDG_RUNTIME_DIR/safe-run-$$"
+    mkdir -p "$app_runtime_dir"
+
+    # Create necessary subdirectories in the sandbox's virtual $HOME
+    # These will be bind-mounted from host directories since ProtectHome=tmpfs hides real home
+    sandbox_home_dirs="$app_runtime_dir/home"
+    mkdir -p "$sandbox_home_dirs/.cache" "$sandbox_home_dirs/.config" "$sandbox_home_dirs/.local/share" "$sandbox_home_dirs/.local/state"
+
+    # Add user-specified bind paths (these come from user's -b flags)
+    # The script will append these AFTER the loop below
+
+    # D-Bus proxy setup - xdg-dbus-proxy needs a writable path for its socket
+    dbus_socket="$app_runtime_dir/bus"
+    if command -v xdg-dbus-proxy &>/dev/null; then
+        # xdg-dbus-proxy --filter must come after positional args
+        xdg-dbus-proxy \
+            "$DBUS_SESSION_BUS_ADDRESS" \
+            "$dbus_socket" \
+            --filter &
+        proxy_pid=$!
+
+        # Wait for socket to appear
+        for i in $(seq 1 20); do
+            [[ -S "$dbus_socket" ]] && break
+            sleep 0.1
+        done
+        if [[ ! -S "$dbus_socket" ]]; then
+            echo "Error: D-Bus proxy failed to create socket" >&2
+            kill "$proxy_pid" 2>/dev/null || true
+            rm -rf "$app_runtime_dir"
+            exit 1
+        fi
     else
-        bind_paths_str="$path"
+        # Fall back to direct D-Bus socket bind
+        dbus_socket="$XDG_RUNTIME_DIR/bus"
+        proxy_pid=""
     fi
-done
 
-# Build InaccessiblePaths - protect sensitive directories
-inaccessible_paths=""
-for dir in "$HOME/.ssh" "$HOME/.gnupg"; do
-    if [[ -e "$dir" ]]; then
-        inaccessible_paths="$inaccessible_paths $dir"
-    fi
-done
-for dir in "$HOME"/*secrets* "$HOME/.aws" "$HOME/.config/gcloud" "$HOME/.kube"; do
-    if [[ -e "$dir" ]]; then
-        inaccessible_paths="$inaccessible_paths $dir"
-    fi
-done
-inaccessible_paths="${inaccessible_paths# }"
+    # Add user whitelisted paths
+    for path in "${bind_paths[@]}"; do
+        systemd_args+=(-p "BindPaths=$path")
+        # In GUI mode, if a path is inside the real home, also bind it into the virtual home
+        # so the app (which sees the redirected $HOME) can find it.
+        if $gui_mode && [[ "$path" == "$HOME"* ]]; then
+            rel_path="${path#$HOME/}"
+            if [[ -n "$rel_path" ]]; then
+                vpath="$sandbox_home_dirs/$rel_path"
+                if [[ -d "$path" ]]; then
+                    mkdir -p "$vpath"
+                else
+                    mkdir -p "$(dirname "$vpath")"
+                    touch "$vpath"
+                fi
+                systemd_args+=(-p "BindPaths=$path:$vpath")
+            fi
+        fi
+    done
 
-exec systemd-run --user --pty \
-    -p ProtectHome=tmpfs \
-    -p "BindPaths=$bind_paths_str" \
-    -p BindReadOnlyPaths="/etc/debian_version /etc/ssl/certs /etc/resolv.conf /etc/nsswitch.conf /etc/hosts" \
-    -p NoNewPrivileges=yes \
-    -p ProtectSystem=strict \
-    -p RestrictRealtime=yes \
-    -p "RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX" \
-    -p ProtectKernelTunables=yes \
-    -p ProtectControlGroups=yes \
-    -p PrivateTmp=yes \
-    -p RestrictNamespaces=yes \
-    -p LockPersonality=yes \
-    -p RestrictSUIDSGID=yes \
-    "$@"
+    # GUI-specific systemd options
+    systemd_args+=(
+        -p "WorkingDirectory=$HOME"
+        -p PrivateDevices=yes
+        -p PrivatePIDs=yes
+        # Make XDG_RUNTIME_DIR a writable tmpfs but bind sockets into it
+        -p "TemporaryFileSystem=$XDG_RUNTIME_DIR:rw"
+        # Bind the virtual home parent directory so it's visible inside the tmpfs
+        -p "BindPaths=$app_runtime_dir"
+        -p "BindPaths=$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
+        -p "BindPaths=$dbus_socket:$XDG_RUNTIME_DIR/bus"
+        -p "Environment=WAYLAND_DISPLAY=$WAYLAND_DISPLAY"
+        -p "Environment=DISPLAY="
+        -p "Environment=XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR"
+        -p "Environment=XDG_DATA_HOME=$sandbox_home_dirs/.local/share"
+        -p "Environment=XDG_CONFIG_HOME=$sandbox_home_dirs/.config"
+        -p "Environment=XDG_CACHE_HOME=$sandbox_home_dirs/.cache"
+        -p "Environment=XDG_STATE_HOME=$sandbox_home_dirs/.local/state"
+        -p "Environment=HOME=$sandbox_home_dirs"
+        # GPU devices
+        -p "BindPaths=-/dev/dri"
+        -p "DeviceAllow=/dev/dri rw"
+        -p "BindPaths=-/dev/nvidiactl"
+        -p "DeviceAllow=/dev/nvidiactl rw"
+        -p "BindPaths=-/dev/nvidia-modeset"
+        -p "DeviceAllow=/dev/nvidia-modeset rw"
+        -p "BindPaths=-/dev/nvidia-uvm"
+        -p "DeviceAllow=/dev/nvidia-uvm rw"
+        -p "BindPaths=-/dev/nvidia-uvm-tools"
+        -p "DeviceAllow=/dev/nvidia-uvm-tools rw"
+        -p "BindPaths=-/dev/nvidia0"
+        -p "DeviceAllow=/dev/nvidia0 rw"
+    )
+
+    # Cleanup handler for proxy
+    if [[ -n "$proxy_pid" ]]; then
+        trap "kill $proxy_pid 2>/dev/null; rm -rf '$app_runtime_dir'" EXIT INT TERM
+    else
+        trap "rm -rf '$app_runtime_dir'" EXIT INT TERM
+    fi
+else
+    # Non-GUI mode: add bind paths and restrict namespaces
+    for path in "${bind_paths[@]}"; do
+        systemd_args+=(-p "BindPaths=$path")
+    done
+    systemd_args+=(-p RestrictNamespaces=yes)
+fi
+
+exec systemd-run "${systemd_args[@]}" "$@"
