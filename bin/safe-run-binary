@@ -112,6 +112,7 @@ if test "$gui_mode"; then
     # Create necessary subdirectories in the sandbox's virtual $HOME
     # These will be bind-mounted from host directories since ProtectHome=tmpfs hides real home
     sandbox_home_dirs="$app_runtime_dir/home"
+    cp -dR --preserve=mode,timestamps /etc/skel "$app_runtime_dir/home"
     mkdir -p "$sandbox_home_dirs/.cache" "$sandbox_home_dirs/.config" "$sandbox_home_dirs/.local/share" "$sandbox_home_dirs/.local/state"
 
     # Add user-specified bind paths (these come from user's -b flags)
