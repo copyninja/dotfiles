@@ -22,7 +22,7 @@ usage() {
 
 # Parse arguments
 bind_paths=()
-gui_mode=false
+gui_mode=
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -92,7 +92,7 @@ systemd_args=(
 )
 
 # GUI-specific additions - must add paths BEFORE loop above adds them to systemd_args
-if $gui_mode; then
+if test "$gui_mode"; then
     # Validate Wayland display
     if [[ -z "$WAYLAND_DISPLAY" ]]; then
         echo "Error: --gui requires WAYLAND_DISPLAY to be set" >&2
